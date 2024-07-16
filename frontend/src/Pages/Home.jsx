@@ -1,7 +1,18 @@
-import React from 'react'
+import React from "react";
 
-export const Home = () => {
+function Home() {
   return (
-    <div>Home</div>
-  )
+    <>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2953.2191821207084!2d72.97306599334473!3d22.53513731164335!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e4c701b5406dd%3A0x10fcf9f9e1a4d635!2sAnand%20Agricultural%20University!5e0!3m2!1sen!2sin!4v1721120003870!5m2!1sen!2sin"
+        width={1000}
+        height={500}
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </>
+  );
 }
+
+export default Home;

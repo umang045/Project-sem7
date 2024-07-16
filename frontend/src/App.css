@@ -22,6 +22,25 @@
     font-size: 14px;
 }
 
+
+/* navbar css start */
+
+.navbar {
+    width: 100%;
+    height: 70px;
+    background-color: #212529;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar h3 {
+    color: white;
+}
+
+
+/* navbar css end */
+
 .form-control {
     width: 250px;
     box-shadow: none;

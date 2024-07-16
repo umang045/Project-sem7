@@ -10,6 +10,7 @@ import {
 
 
 import AddClgInfo from "./Pages/AddClgInfo";
+import Home from "./Pages/Home";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -19,6 +20,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainLayout />}>
+            <Route path="/" element={<Home></Home>}></Route>
             <Route path="form" element={<AddClgInfo></AddClgInfo>}></Route>
           </Route>
         </Routes>
