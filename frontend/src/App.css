@@ -1,0 +1,45 @@
+:root {
+    --color-212529: #212529;
+    --color-ffd333: #ffd333;
+    --color-47ad24: #47ad24;
+    --color-e52e2e: #e52e2e;
+    --color-828599: #828599;
+    --color-3d464d: #ed464d;
+    --color-c3d4da: #ced4da;
+}
+
+.gap-15 {
+    gap: 10px;
+}
+
+.green {
+    color: var(--color-47ad24);
+    font-size: 14px;
+}
+
+.red {
+    color: var(--color-212529);
+    font-size: 14px;
+}
+
+.form-control {
+    width: 250px;
+    box-shadow: none;
+    border-color: var(--color-c3d4da);
+    margin-right: 10px;
+}
+
+.form-container form h4 {
+    color: #828599;
+    width: 100%;
+    margin-bottom: 0px;
+}
+
+.form-container form {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.sub-components {
+    padding-bottom: 30px;
+}

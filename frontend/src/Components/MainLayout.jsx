@@ -1,47 +1,61 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
+import { useNavigate, Outlet, Link, Navigate } from "react-router-dom";
 import {
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    UploadOutlined,
-    UserOutlined,
-    VideoCameraOutlined,
-  } from '@ant-design/icons';
-  import { Button, Layout, Menu, theme } from 'antd';
-  const { Header, Sider, Content } = Layout;
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UploadOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
+} from "@ant-design/icons";
+import { Button, Layout, Menu, theme } from "antd";
+const { Header, Sider, Content } = Layout;
+
+
+
 const MainLayout = () => {
-    const [collapsed, setCollapsed] = useState(false);
-    const {
-      token: { colorBgContainer, borderRadiusLG },
-    } = theme.useToken();
+  const [collapsed, setCollapsed] = useState(false);
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
+
+
+  
+  const navigate = useNavigate();
   return (
-    <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-      <div className="logo">
+    <Layout className="position-relative overflow-y-auto">
+      <Sider  className="position-relative sidebar fixed-top"trigger={null} collapsible collapsed={collapsed}>
+        <div className="logo">
           <h6 className="text-white  text-center py-3 mb-0">
             <span className="sm-logo">Admin</span>
             <br />
             {/* <span className="lg-logo">E-Comm</span> */}
           </h6>
         </div>
-        <Menu
+        <Menu className="position-static"
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={['1']}
+          defaultSelectedKeys={[""]}
+          onClick={({ key }) => {
+            if (key == "signout") {
+            } else {
+              navigate(key);
+            }
+          }}
           items={[
             {
-              key: '1',
+              key: "",
               icon: <UserOutlined />,
-              label: 'nav 1',
+              label: "Dashbord",
             },
             {
-              key: '2',
+              key: "form",
               icon: <VideoCameraOutlined />,
-              label: 'nav 2',
+              label: "form",
             },
             {
-              key: '3',
+              key: "other",
               icon: <UploadOutlined />,
-              label: 'nav 3',
+              label: "nav 3",
             },
           ]}
         />
@@ -58,7 +72,7 @@ const MainLayout = () => {
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
             onClick={() => setCollapsed(!collapsed)}
             style={{
-              fontSize: '16px',
+              fontSize: "16px",
               width: 64,
               height: 64,
             }}
@@ -66,18 +80,18 @@ const MainLayout = () => {
         </Header>
         <Content
           style={{
-            margin: '24px 16px',
+            margin: "24px 16px",
             padding: 24,
             minHeight: 280,
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
           }}
         >
-          Content
+          <Outlet />
         </Content>
       </Layout>
     </Layout>
-  )
-}
+  );
+};
 
-export default MainLayout
+export default MainLayout;
