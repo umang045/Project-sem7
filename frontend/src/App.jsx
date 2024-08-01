@@ -11,6 +11,7 @@ import {
 
 import AddClgInfo from "./Pages/AddClgInfo";
 import Home from "./Pages/Home";
+import AddkacheriInfo from "./Pages/AddkacheriInfo";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -22,6 +23,7 @@ function App() {
           <Route path="/" element={<MainLayout />}>
             <Route path="/" element={<Home></Home>}></Route>
             <Route path="form" element={<AddClgInfo></AddClgInfo>}></Route>
+            <Route path="kacheri" element={<AddkacheriInfo></AddkacheriInfo>}></Route>
           </Route>
         </Routes>
       </BrowserRouter>

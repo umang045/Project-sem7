@@ -17,8 +17,6 @@ import {
 import { Button, Flex, Layout, Menu, theme } from "antd";
 const { Header, Sider, Content } = Layout;
 
-
-
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const {
@@ -31,9 +29,6 @@ const MainLayout = () => {
       <nav className="navbar">
         <h3>Anand Agricultural University</h3>
       </nav>
-
-
-
       <Layout className="position-relative overflow-y-auto">
         <Sider
           className="position-relative sidebar fixed-top"
@@ -71,18 +66,15 @@ const MainLayout = () => {
                 label: "Educational",
               },
               {
-                key: "other",
+                key: "/kacheri",
                 icon: <UploadOutlined />,
-                label: "nav 3",
+                label: "Kacheri",
               },
             ]}
           />
         </Sider>
         <Layout>
-
-          <Header
-           className="d-flex p-0 justify-content-between align-items-center bg-white"
-          >
+          <Header className="d-flex p-0 justify-content-between align-items-center bg-white">
             <Button
               type="text"
               icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -92,7 +84,6 @@ const MainLayout = () => {
                 width: 64,
                 height: 64,
               }}
-              
             />
             <h3>Property Register</h3>
             <h3></h3>

@@ -42,7 +42,7 @@
 /* navbar css end */
 
 .form-control {
-    width: 250px;
+    /* width: 250px; */
     box-shadow: none;
     border-color: var(--color-c3d4da);
     margin-right: 10px;

@@ -1,15 +1,26 @@
 const asyncHandler = require("express-async-handler");
 const Property = require("../model/propertyModel");
+const Factory = require("./handleFactory");
 
-const createProperty = asyncHandler(async (req, res) => {
-  try {
-    const createproperty = await Property.create(req.body);
-    res.send(createproperty);
-  } catch (error) {
-    throw new Error(error);
-  }
-});
+//create property
+const createProperty = Factory.createOne(Property);
 
-module.exports={
-    createProperty
-}
+//delete
+const deleteProperty = Factory.deletOne(Property);
+
+//get all properties
+const getAllProperty = Factory.getAll(Property);
+
+//update properties
+const updateProperty = Factory.updateOne(Property);
+
+//get one property
+const getoneProperty = Factory.getOne(Property);
+
+module.exports = {
+  createProperty,
+  deleteProperty,
+  getAllProperty,
+  updateProperty,
+  getoneProperty
+};
