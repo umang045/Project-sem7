@@ -1,0 +1,80 @@
+import React from "react";
+import CustomInput from "../Components/CustomInput";
+
+const addVibhag = () => {
+  return (
+    <>
+      <div>
+        <h3 className="mb-4 ">ક્ચેરી‌ ની માહીતી</h3>
+        <div>
+          <form action="">
+            <select
+              name="category"
+              id=""
+              className="w-100 border  py-3 mb-3 "
+              style={{ outlineStyle: "none", borderRadius: "5px" }}
+            >
+              <option value="">ક્ચેરી‌નુ‌નામ</option>
+              <option value="">AIT</option>
+              <option value="">BACA</option>
+              <option value="">FPT</option>
+            </select>
+            <CustomInput
+              type="text"
+              placeholder="વિભાગ‌નુ‌નામ"
+              name="વિભાગ‌નુ‌નામ"
+            />
+            <CustomInput type="text" placeholder="યૂનીટનંબર" name="યૂનીટનંબર" />
+            <CustomInput
+              type="text"
+              placeholder="મકાનનુ‌નામ"
+              name="મકાનનુ‌નામ"
+            />
+            <CustomInput
+              type="text"
+              placeholder="જુનોમિલ્કતનંબર"
+              name="જુનોમિલ્કતનંબર"
+            />
+            <CustomInput
+              type="text"
+              placeholder="નવોમિલ્કતનંબર"
+              name="નવોમિલ્કતનંબર"
+            />
+            <CustomInput type="text" placeholder="બિલનંબર_1" name="બિલનંબર_1" />
+            <CustomInput type="text" placeholder="બિલનંબર_2" name="બિલનંબર_2" />
+            <CustomInput
+              type="text"
+              placeholder="મકાનનોઉપયોગ"
+              name="મકાનનોઉપયોગ"
+            />
+            <CustomInput
+              type="text"
+              placeholder="ગેસલાઈનગ્રાહકનંબર"
+              name="ગેસલાઈનગ્રાહકનંબર"
+            />
+            <CustomInput
+              type="text"
+              placeholder="ઈલેકટ્રીકગ્રાહકનંબર"
+              name="ઈલેકટ્રીકગ્રાહકનંબર"
+            />
+            <CustomInput
+              type="text"
+              placeholder="ફાયરનીવ્યવસ્થા"
+              name="ફાયરનીવ્યવસ્થા"
+            />
+
+            <button
+              type="submit"
+              className="btn btn-success border-0 rounded-3 my-5"
+              // onSubmit={console.log(formik.values)}
+            >
+              Add
+            </button>
+          </form>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default addVibhag;

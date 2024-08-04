@@ -1,20 +1,14 @@
 import React, { useState } from "react";
-import { useNavigate, Outlet, Link, Navigate } from "react-router-dom";
-import {
-  AiOutlineDashboard,
-  AiOutlineShoppingCart,
-  AiOutlineUser,
-  AiOutlineBgColors,
-} from "react-icons/ai";
+import { useNavigate, Outlet } from "react-router-dom";
+
 import { FaSchool } from "react-icons/fa";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UploadOutlined,
   UserOutlined,
-  VideoCameraOutlined,
 } from "@ant-design/icons";
-import { Button, Flex, Layout, Menu, theme } from "antd";
+import { Button, Layout, Menu, theme } from "antd";
 const { Header, Sider, Content } = Layout;
 
 const MainLayout = () => {
@@ -61,14 +55,29 @@ const MainLayout = () => {
                 label: "Dashbord",
               },
               {
+                key: "/kacheri",
+                icon: <UploadOutlined />,
+                label: "ક્ચેરી‌",
+              },
+              {
+                key: "/kacherilist",
+                icon: <UploadOutlined />,
+                label: "ક્ચેરી‌ ",
+              },
+              {
+                key: "vibhag",
+                icon: <UploadOutlined />,
+                label: "વિભાગ‌",
+              },
+              {
+                key: "vibhaglist",
+                icon: <UploadOutlined />,
+                label: "વિભાગ‌",
+              },
+              {
                 key: "form",
                 icon: <FaSchool />,
                 label: "Educational",
-              },
-              {
-                key: "/kacheri",
-                icon: <UploadOutlined />,
-                label: "Kacheri",
               },
             ]}
           />
