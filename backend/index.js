@@ -3,14 +3,19 @@ const http = require('http')
 const app = express();
 const dotenv = require("dotenv").config();
 const PORT = process.env.PORT;
+const cors = require("cors");
 const dbConnection = require("./config/dbConnection");
 
 
-const propertyRoute = require('./routes/propertyRoute')
+const propertyRoute = require('./routes/kacheriRoute')
+const vibhagRoute = require('./routes/vibhagRoute')
 
 dbConnection();
+app.use(cors());
 app.use(express.json());
-app.use('/api/property',propertyRoute)
+app.use('/api/kacheri',propertyRoute)
+app.use('/api/vibhag',vibhagRoute)
+
 
 app.listen(PORT, (err) => {
     if (err) {

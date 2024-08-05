@@ -62,7 +62,7 @@ const MainLayout = () => {
               {
                 key: "/kacherilist",
                 icon: <UploadOutlined />,
-                label: "ક્ચેરી‌ ",
+                label: "ક્ચેરી‌ ની વિગત",
               },
               {
                 key: "vibhag",
@@ -72,7 +72,7 @@ const MainLayout = () => {
               {
                 key: "vibhaglist",
                 icon: <UploadOutlined />,
-                label: "વિભાગ‌",
+                label: "વિભાગ‌ ની વિગત",
               },
               {
                 key: "form",

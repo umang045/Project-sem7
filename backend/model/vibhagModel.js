@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
-var propertySchema = new mongoose.Schema(
+var vibhagSchema = new mongoose.Schema(
   {
-    ક્ચેરી‌નુ‌નામ: {
-      type: String,
-      required: true,
+    kacheriId : {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Kacheri",
     },
     વિભાગ‌નુ‌નામ: {
       type: String,
@@ -51,4 +51,4 @@ var propertySchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-module.exports = mongoose.model("Property", propertySchema);
+module.exports = mongoose.model("Vibhag", vibhagSchema);
