@@ -20,7 +20,7 @@ const MainLayout = () => {
   const navigate = useNavigate();
   return (
     <>
-      <nav className="navbar">
+      <nav className="navbar w">
         <h3>Anand Agricultural University</h3>
       </nav>
       <Layout className="position-relative overflow-y-auto">

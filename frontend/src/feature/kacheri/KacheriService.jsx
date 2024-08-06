@@ -11,9 +11,25 @@ const addKacheri = async (data) => {
   if (response) return response.data;
 };
 
+const delKacheri = async (id) => {
+  const response = await axios.delete(`${base_url}kacheri/${id}`);
+  if (response) return response.data;
+};
+
+const updateKacheri = async (data) => {
+  console.log(data.values);
+  const response = await axios.put(
+    `${base_url}kacheri/${data?.id}`,
+    data?.values
+  );
+  if (response) return response.data;
+};
+
 const kacheriService = {
   getKacheri,
   addKacheri,
+  delKacheri,
+  updateKacheri,
 };
 
 export default kacheriService;

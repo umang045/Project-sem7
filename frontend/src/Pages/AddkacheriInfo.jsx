@@ -1,10 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import CustomInput from "../Components/CustomInput";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
-import { addKacheri, getKacheri } from "../feature/kacheri/kacheriSlice";
-import { useKacheri } from "../Hooks/useKacheri";
+import { useDispatch } from "react-redux";
+import {
+  addKacheri,
+  getKacheri,
+  updateKacheri,
+} from "../feature/kacheri/kacheriSlice";
+import { useLocation, useParams } from "react-router-dom";
 
 let schema = yup.object().shape({
   ક્ચેરી‌નુ‌નામ: yup.string().required("ક્ચેરી‌ નુ‌ નામ જરુરી છે."),
@@ -12,6 +16,9 @@ let schema = yup.object().shape({
 
 const AddkacheriInfo = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const kacheriItem = location.state;
+  const { id } = useParams();
 
   const formik = useFormik({
     initialValues: {
@@ -19,12 +26,21 @@ const AddkacheriInfo = () => {
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      dispatch(addKacheri(values));
-      setTimeout(() => {
-        dispatch(getKacheri());
-      }, 100);
+      console.log(id);
+      if (id !== undefined) dispatch(updateKacheri({ values, id }));
+      else {
+        dispatch(addKacheri(values));
+        setTimeout(() => {
+          dispatch(getKacheri());
+        }, 100);
+      }
     },
   });
+  useLayoutEffect(() => {
+    if (id != undefined && kacheriItem != null && kacheriItem) {
+      formik.setValues({ ક્ચેરી‌નુ‌નામ: kacheriItem });
+    } else formik.setValues({ ક્ચેરી‌નુ‌નામ: "" });
+  }, [kacheriItem, id]);
   return (
     <>
       <div>
@@ -46,7 +62,7 @@ const AddkacheriInfo = () => {
               type="submit"
               className="btn btn-success border-0 rounded-3 my-5"
             >
-              Add
+              {id === undefined ? "ADD" : "Update"}
             </button>
           </form>
         </div>

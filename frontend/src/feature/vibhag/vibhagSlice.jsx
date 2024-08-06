@@ -17,7 +17,20 @@ export const addVibhag = createAsyncThunk(
   "vibhag/add-one",
   async (data, ThunkAPI) => {
     try {
+      console.log(data); 
       return await vibhagService.addVibhag(data);
+    } catch (error) {
+      return ThunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const delVibhag = createAsyncThunk(
+  "vibhag/del-one",
+  async (id, ThunkAPI) => {
+    try {
+      // console.log(id); 
+      return await vibhagService.delVibhag(id);
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
@@ -39,6 +52,7 @@ export const vibhagSlice = createSlice({
   extraReducers: (builder) => {
     generateExtraReducers(getAllVibhag, "vibhag")(builder);
     generateExtraReducers(addVibhag, "addVibhag")(builder);
+    generateExtraReducers(delVibhag, "delVibhag")(builder);
   },
 });
 

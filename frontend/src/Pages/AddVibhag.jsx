@@ -4,7 +4,9 @@ import { useKacheri } from "../Hooks/useKacheri";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
-import { getAllVibhag } from "../feature/vibhag/vibhagSlice";
+import { addVibhag } from "../feature/vibhag/vibhagSlice";
+import { useVibhag } from "../Hooks/useVibahg";
+import { useLocation, useParams } from "react-router-dom";
 
 let schema = yup.object().shape({
   ક્ચેરી‌નુ‌નામ: yup.string().required("ક્ચેરી‌ નુ‌ નામ જરુરી છે."),
@@ -12,12 +14,38 @@ let schema = yup.object().shape({
   મકાનનુ‌નામ: yup.string().required("મકાનનુ‌નામ જરુરી છે."),
 });
 
-const addVibhag = () => {
+const AddVibhag = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAllVibhag());
-  }, [getAllVibhag,dispatch]);
+  const { vibhagState } = useVibhag();
+  const { id } = useParams();
+  const location = useLocation();
+  const vibhagData = location.state;
+  console.log(vibhagData.name);
+
   const { kacheriState } = useKacheri();
+
+  useEffect(() => {
+    if (id != undefined && vibhagData != null) {
+      formik.setValues({
+        kacheriId:vibhagData.vibhagData,
+        વિભાગ‌નુ‌નામ: vibhagData.વિભાગ‌નુ‌નામ,
+        યૂનીટનંબર: vibhagData.યૂનીટનંબર,
+        ઈલેકટ્રીકગ્રાહકનંબર: vibhagData.ઈલેકટ્રીકગ્રાહકનંબર,
+        ગેસલાઈનગ્રાહકનંબર: vibhagData.ગેસલાઈનગ્રાહકનંબર,
+        મકાનનોઉપયોગ: vibhagData.મકાનનોઉપયોગ,
+        બિલનીકુલરકમ: vibhagData.બિલનીકુલરકમ,
+        બિલનંબર_1: vibhagData.બિલનંબર_1,
+        બિલનંબર_2: vibhagData.બિલનંબર_2,
+        નવોમિલ્કતનંબર: vibhagData.નવોમિલ્કતનંબર,
+        જુનોમિલ્કતનંબર: vibhagData.જુનોમિલ્કતનંબર,
+        મકાનનુ‌નામ: vibhagData.મકાનનુ‌નામ,
+        વિભાગ‌નુ‌નામ: vibhagData.વિભાગ‌નુ‌નામ,
+        યૂનીટનંબર: vibhagData.યૂનીટનંબર,
+        ફાયરનીવ્યવસ્થા: vibhagData.ફાયરનીવ્યવસ્થા,
+      });
+    } else formik.setValues({ ક્ચેરી‌નુ‌નામ: "" });
+  }, [vibhagData, id]);
+
   const formik = useFormik({
     initialValues: {
       kacheriId: "",
@@ -35,7 +63,7 @@ const addVibhag = () => {
       યૂનીટનંબર: "",
     },
     onSubmit: (values) => {
-      alert(values);
+      dispatch(addVibhag(values));
     },
   });
   return (
@@ -162,7 +190,7 @@ const addVibhag = () => {
               className="btn btn-success border-0 rounded-3 my-5"
               onSubmit={console.log(formik.values)}
             >
-              Add
+              {id !== undefined ? "Update" : "Add"}
             </button>
           </form>
         </div>
@@ -171,4 +199,4 @@ const addVibhag = () => {
   );
 };
 
-export default addVibhag;
+export default AddVibhag;
