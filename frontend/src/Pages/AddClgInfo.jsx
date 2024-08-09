@@ -1,8 +1,11 @@
 import React from "react";
 import CustomInput from "../Components/CustomInput";
 import { useKacheri } from "../Hooks/useKacheri";
+import { useDispatch } from "react-redux";
+import { getVibhagByKacheri } from "../feature/vibhag/vibhagSlice";
 
 const AddClgInfo = () => {
+  const dispatch = useDispatch();
   let yearArr = [];
   let date = new Date();
   const year = date.getFullYear();
@@ -22,9 +25,14 @@ const AddClgInfo = () => {
           id=""
           className="w-100 border  py-3 mb-3 "
           style={{ outlineStyle: "none", borderRadius: "5px" }}
-          onChange={dispa("kacheriId")}
+          // value={formik.values.kacheriId}
+          onChange={(e) => {
+            const id = e.target.value;
+            dispatch(
+              getVibhagByKacheri({kacheriId: id  })
+            );
+          }}
           // onBlur={formik.handleBlur("kacheriId")}
-          value={formik.values.kacheriId}
         >
           <option value="">ક્ચેરી‌નુ‌નામ</option>
           {kacheriState?.map((item, index) => {

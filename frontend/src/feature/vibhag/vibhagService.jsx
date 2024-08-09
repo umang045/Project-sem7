@@ -24,7 +24,10 @@ const getOneVibhag = async (id) => {
 };
 
 const getVibhagByKacheri = async (data) => {
+  console.log(data);
   const response = await axios.get(`${base_url}vibhag/kacheriVibh`, data);
+  console.log(response.data);
+  
   if (response) return response.data;
 };
 
