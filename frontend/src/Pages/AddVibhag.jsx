@@ -3,10 +3,11 @@ import CustomInput from "../Components/CustomInput";
 import { useKacheri } from "../Hooks/useKacheri";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addVibhag } from "../feature/vibhag/vibhagSlice";
 import { useVibhag } from "../Hooks/useVibahg";
 import { useLocation, useParams } from "react-router-dom";
+import { getOneKacheri } from "../feature/kacheri/kacheriSlice";
 
 let schema = yup.object().shape({
   ક્ચેરી‌નુ‌નામ: yup.string().required("ક્ચેરી‌ નુ‌ નામ જરુરી છે."),
@@ -16,18 +17,19 @@ let schema = yup.object().shape({
 
 const AddVibhag = () => {
   const dispatch = useDispatch();
-  const { vibhagState } = useVibhag();
   const { id } = useParams();
   const location = useLocation();
   const vibhagData = location.state;
-  console.log(vibhagData.name);
+  // console.log(vibhagData.name);
 
   const { kacheriState } = useKacheri();
+  const onekacheriState = useSelector((state) => state?.kacheri?.getOneKacheri);
 
   useEffect(() => {
     if (id != undefined && vibhagData != null) {
+      dispatch(getOneKacheri(vibhagData?.kacheriId));
       formik.setValues({
-        kacheriId:vibhagData.vibhagData,
+        kacheriId: onekacheriState?._id,
         વિભાગ‌નુ‌નામ: vibhagData.વિભાગ‌નુ‌નામ,
         યૂનીટનંબર: vibhagData.યૂનીટનંબર,
         ઈલેકટ્રીકગ્રાહકનંબર: vibhagData.ઈલેકટ્રીકગ્રાહકનંબર,
@@ -41,9 +43,25 @@ const AddVibhag = () => {
         મકાનનુ‌નામ: vibhagData.મકાનનુ‌નામ,
         વિભાગ‌નુ‌નામ: vibhagData.વિભાગ‌નુ‌નામ,
         યૂનીટનંબર: vibhagData.યૂનીટનંબર,
-        ફાયરનીવ્યવસ્થા: vibhagData.ફાયરનીવ્યવસ્થા,
+        ફાયરનીવ્યવસ્થા: vibhagData.ફાયરનીવ્યવસ્થા ? "true" : "false",
       });
-    } else formik.setValues({ ક્ચેરી‌નુ‌નામ: "" });
+    } else {
+      formik.setValues({
+        kacheriId: "",
+        ફાયરનીવ્યવસ્થા: true,
+        ઈલેકટ્રીકગ્રાહકનંબર: "",
+        ગેસલાઈનગ્રાહકનંબર: "",
+        મકાનનોઉપયોગ: "",
+        બિલનીકુલરકમ: 0,
+        બિલનંબર_1: "",
+        બિલનંબર_2: "",
+        નવોમિલ્કતનંબર: "",
+        જુનોમિલ્કતનંબર: "",
+        મકાનનુ‌નામ: "",
+        વિભાગ‌નુ‌નામ: "",
+        યૂનીટનંબર: "",
+      });
+    }
   }, [vibhagData, id]);
 
   const formik = useFormik({
@@ -63,6 +81,7 @@ const AddVibhag = () => {
       યૂનીટનંબર: "",
     },
     onSubmit: (values) => {
+      // console.log(values);
       dispatch(addVibhag(values));
     },
   });
@@ -92,7 +111,7 @@ const AddVibhag = () => {
             </select>
             <CustomInput
               type="text"
-              placeholder="વિભાગ‌નુ‌નામ"
+              placeholder="વિભાગ‌ નુ‌ નામ"
               name="વિભાગ‌નુ‌નામ"
               onChng={formik.handleChange("વિભાગ‌નુ‌નામ")}
               onBlr={formik.handleBlur("વિભાગ‌નુ‌નામ")}
@@ -100,7 +119,7 @@ const AddVibhag = () => {
             />
             <CustomInput
               type="text"
-              placeholder="યૂનીટનંબર"
+              placeholder="યૂનીટ નંબર"
               name="યૂનીટનંબર"
               onChng={formik.handleChange("યૂનીટનંબર")}
               onBlr={formik.handleBlur("યૂનીટનંબર")}
@@ -108,7 +127,7 @@ const AddVibhag = () => {
             />
             <CustomInput
               type="text"
-              placeholder="મકાનનુ‌નામ"
+              placeholder="મકાન નુ ‌નામ"
               name="મકાનનુ‌નામ"
               onChng={formik.handleChange("મકાનનુ‌નામ")}
               onBlr={formik.handleBlur("મકાનનુ‌નામ")}
@@ -116,7 +135,7 @@ const AddVibhag = () => {
             />
             <CustomInput
               type="text"
-              placeholder="જુનોમિલ્કતનંબર"
+              placeholder="જુનો મિલ્કત નંબર"
               name="જુનોમિલ્કતનંબર"
               onChng={formik.handleChange("જુનોમિલ્કતનંબર")}
               onBlr={formik.handleBlur("જુનોમિલ્કતનંબર")}
@@ -124,7 +143,7 @@ const AddVibhag = () => {
             />
             <CustomInput
               type="text"
-              placeholder="નવોમિલ્કતનંબર"
+              placeholder="નવો મિલ્કત નંબર"
               name="નવોમિલ્કતનંબર"
               onChng={formik.handleChange("નવોમિલ્કતનંબર")}
               onBlr={formik.handleBlur("નવોમિલ્કતનંબર")}
@@ -132,7 +151,7 @@ const AddVibhag = () => {
             />
             <CustomInput
               type="text"
-              placeholder="બિલનંબર_1"
+              placeholder="બિલનંબર 1"
               name="બિલનંબર_1"
               onChng={formik.handleChange("બિલનંબર_1")}
               onBlr={formik.handleBlur("બિલનંબર_1")}
@@ -140,7 +159,7 @@ const AddVibhag = () => {
             />
             <CustomInput
               type="text"
-              placeholder="બિલનંબર_2"
+              placeholder="બિલનંબર 2"
               name="બિલનંબર_2"
               onChng={formik.handleChange("બિલનંબર_2")}
               onBlr={formik.handleBlur("બિલનંબર_2")}
@@ -148,7 +167,7 @@ const AddVibhag = () => {
             />
             <CustomInput
               type="number"
-              placeholder="બિલનીકુલરકમ"
+              placeholder="બિલ ની કુલ રકમ"
               name="બિલનીકુલરકમ"
               onChng={formik.handleChange("બિલનીકુલરકમ")}
               onBlr={formik.handleBlur("બિલનીકુલરકમ")}
@@ -156,7 +175,7 @@ const AddVibhag = () => {
             />
             <CustomInput
               type="text"
-              placeholder="મકાનનોઉપયોગ"
+              placeholder="મકાન નો ઉપયોગ"
               name="મકાનનોઉપયોગ"
               onChng={formik.handleChange("મકાનનોઉપયોગ")}
               onBlr={formik.handleBlur("મકાનનોઉપયોગ")}
@@ -164,7 +183,7 @@ const AddVibhag = () => {
             />
             <CustomInput
               type="text"
-              placeholder="ગેસલાઈનગ્રાહકનંબર"
+              placeholder="ગેસ લાઈન ગ્રાહક નંબર"
               name="ગેસલાઈનગ્રાહકનંબર"
               onChng={formik.handleChange("ગેસલાઈનગ્રાહકનંબર")}
               onBlr={formik.handleBlur("ગેસલાઈનગ્રાહકનંબર")}
@@ -172,7 +191,7 @@ const AddVibhag = () => {
             />
             <CustomInput
               type="text"
-              placeholder="ઈલેકટ્રીકગ્રાહકનંબર"
+              placeholder="ઈલેકટ્રીક ગ્રાહક નંબર"
               name="ઈલેકટ્રીકગ્રાહકનંબર"
               onChng={formik.handleChange("ઈલેકટ્રીકગ્રાહકનંબર")}
               onBlr={formik.handleBlur("ઈલેકટ્રીકગ્રાહકનંબર")}
@@ -180,15 +199,29 @@ const AddVibhag = () => {
             />
             <div>
               <label className="h6 mt-3 p-3 gap-15">ફાયરનીવ્યવસ્થા</label>
-              <input type="radio" name="fire" value={true} checked />
+              <input
+                type="radio"
+                name="ફાયરનીવ્યવસ્થા"
+                value="true"
+                checked={formik.values.ફાયરનીવ્યવસ્થા === "true"}
+                onChange={formik.handleChange("ફાયરનીવ્યવસ્થા")}
+                onBlur={formik.handleChange("ફાયરનીવ્યવસ્થા")}
+              />
               હા
-              <input type="radio" name="fire" value={false} />
+              <input
+                type="radio"
+                name="ફાયરનીવ્યવસ્થા"
+                value="false"
+                checked={formik.values.ફાયરનીવ્યવસ્થા === "false"}
+                onChange={formik.handleChange("ફાયરનીવ્યવસ્થા")}
+                onBlur={formik.handleChange("ફાયરનીવ્યવસ્થા")}
+              />
               ના
             </div>
             <button
               type="submit"
               className="btn btn-success border-0 rounded-3 my-5"
-              onSubmit={console.log(formik.values)}
+              // onSubmit={console.log(formik.values)}
             >
               {id !== undefined ? "Update" : "Add"}
             </button>

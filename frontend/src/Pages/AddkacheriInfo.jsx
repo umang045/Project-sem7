@@ -49,7 +49,7 @@ const AddkacheriInfo = () => {
           <form action="" onSubmit={formik.handleSubmit}>
             <CustomInput
               type="text"
-              placeholder="ક્ચેરી‌નુ‌નામ"
+              placeholder="ક્ચેરી‌ નુ ‌નામ"
               name="ક્ચેરી‌નુ‌નામ"
               onChng={formik.handleChange("ક્ચેરી‌નુ‌નામ")}
               onBlr={formik.handleBlur("ક્ચેરી‌નુ‌નામ")}

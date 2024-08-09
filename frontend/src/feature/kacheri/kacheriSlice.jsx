@@ -15,12 +15,23 @@ export const getKacheri = createAsyncThunk(
 );
 
 export const addKacheri = createAsyncThunk(
-  "kacheri/get-one",
+  "kacheri/add-one",
   async (data, ThunkAPI) => {
     console.log(data);
     
     try {
       return await KacheriService.addKacheri(data);
+    } catch (error) {
+      return ThunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const getOneKacheri = createAsyncThunk(
+  "kacheri/get-one",
+  async (id, ThunkAPI) => {
+    try {
+      return await KacheriService.getOneKacheri(id);
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
@@ -68,6 +79,7 @@ export const kacheriSlice = createSlice({
     generateExtraReducers(addKacheri, "addKacheri")(builder);
     generateExtraReducers(delKacheri, "delKacheri")(builder);
     generateExtraReducers(updateKacheri, "updateKacheri")(builder);
+    generateExtraReducers(getOneKacheri, "getOneKacheri")(builder);
   },
 });
 

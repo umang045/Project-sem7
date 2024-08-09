@@ -25,11 +25,17 @@ const updateKacheri = async (data) => {
   if (response) return response.data;
 };
 
+const getOneKacheri = async (id) => {
+  const response = await axios.get(`${base_url}kacheri/${id}`);
+  if (response) return response.data;
+};
+
 const kacheriService = {
   getKacheri,
   addKacheri,
   delKacheri,
   updateKacheri,
+  getOneKacheri
 };
 
 export default kacheriService;

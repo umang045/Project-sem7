@@ -1,9 +1,14 @@
 import { useEffect } from "react";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
-import { delVibhag, getAllVibhag } from "../feature/vibhag/vibhagSlice";
+import {
+  delVibhag,
+  getAllVibhag,
+  getOneVibhag,
+} from "../feature/vibhag/vibhagSlice";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { getOneKacheri } from "../feature/kacheri/kacheriSlice";
 const fetchVibhag = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -46,6 +51,7 @@ const useVibhag = () => {
           style={{ cursor: "pointer", height: "20px" }}
           onClick={() => {
             const vibhagData = {
+              kacheriId : vibhagState[index]?.kacheriId,
               વિભાગ‌નુ‌નામ: vibhagState[index]?.વિભાગ‌નુ‌નામ,
               યૂનીટનંબર: vibhagState[index]?.યૂનીટનંબર,
               મકાનનુ‌નામ: vibhagState[index]?.મકાનનુ‌નામ,
@@ -60,9 +66,11 @@ const useVibhag = () => {
               મકાનનોઉપયોગ: vibhagState[index]?.મકાનનોઉપયોગ,
               ફાયરનીવ્યવસ્થા: vibhagState[index]?.ફાયરનીવ્યવસ્થા,
             };
+
             navigate(`/vibhag/${vibhagState[index]._id}`, {
               state: vibhagData,
             });
+
           }}
         />
       ),

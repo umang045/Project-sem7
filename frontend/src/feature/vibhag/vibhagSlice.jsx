@@ -17,7 +17,7 @@ export const addVibhag = createAsyncThunk(
   "vibhag/add-one",
   async (data, ThunkAPI) => {
     try {
-      console.log(data); 
+      console.log(data);
       return await vibhagService.addVibhag(data);
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
@@ -29,8 +29,32 @@ export const delVibhag = createAsyncThunk(
   "vibhag/del-one",
   async (id, ThunkAPI) => {
     try {
-      // console.log(id); 
+      // console.log(id);
       return await vibhagService.delVibhag(id);
+    } catch (error) {
+      return ThunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const getOneVibhag = createAsyncThunk(
+  "vibhag/get-one",
+  async (id, ThunkAPI) => {
+    try {
+      // console.log(id);
+      return await vibhagService.getOneVibhag(id);
+    } catch (error) {
+      return ThunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const getVibhagByKacheri = createAsyncThunk(
+  "vibhag/getVibahg-byKacheri",
+  async (data, ThunkAPI) => {
+    try {
+      // console.log(id);
+      return await vibhagService.getVibhagByKacheri(data);
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
@@ -53,6 +77,8 @@ export const vibhagSlice = createSlice({
     generateExtraReducers(getAllVibhag, "vibhag")(builder);
     generateExtraReducers(addVibhag, "addVibhag")(builder);
     generateExtraReducers(delVibhag, "delVibhag")(builder);
+    generateExtraReducers(getOneVibhag, "getOneVibhag")(builder);
+    generateExtraReducers(getVibhagByKacheri, "getVibhagByKacheri")(builder);
   },
 });
 

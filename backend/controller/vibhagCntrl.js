@@ -18,6 +18,7 @@ const updateVibhag = Factory.updateOne(Vibhag);
 //get one property
 const getoneVibhag = Factory.getOne(Vibhag);
 
+//add vibhag
 const addVibhag = asyncHandler(async (req, res, next) => {
   try {
     const { kacheriId } = req.body;
@@ -26,7 +27,17 @@ const addVibhag = asyncHandler(async (req, res, next) => {
     const updateKacheri = await Kacheri.findByIdAndUpdate(kacheriId, {
       $push: { વિભાગ: vibhag._id },
     });
-    res.json({vibhag,updateKacheri});
+    res.json({ vibhag, updateKacheri });
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+const vibhagByKacheri = asyncHandler(async (req, res) => {
+  try {
+    const { kacheriId } = req.body;
+    const vibhag = await Kacheri.findById(kacheriId).populate("વિભાગ");
+    res.send(vibhag);
   } catch (error) {
     throw new Error(error);
   }
@@ -38,5 +49,6 @@ module.exports = {
   getAllVibhag,
   updateVibhag,
   getoneVibhag,
-  addVibhag
+  addVibhag,
+  vibhagByKacheri,
 };

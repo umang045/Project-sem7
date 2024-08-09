@@ -1,327 +1,114 @@
 import React from "react";
 import CustomInput from "../Components/CustomInput";
+import { useKacheri } from "../Hooks/useKacheri";
 
 const AddClgInfo = () => {
+  let yearArr = [];
+  let date = new Date();
+  const year = date.getFullYear();
+
+  for (let index = 2004; index <= year; index++) {
+    yearArr.push(index);
+  }
+
+  const { kacheriState } = useKacheri();
   return (
-    <div>
-      <h3 className="mb-4 ">Add College Information</h3>
-      <div className="form-container">
-        <form>
-          <div className="components">
-            <div className="sub-components d-flex flex-wrap">
-              <h4 className="mb-0">Office Information</h4>
-              <CustomInput
-                type="text"
-                placeholder="Office Area/sqft"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Year of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Amount of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Number of Ac in office"
-                name="title"
-              />
-            </div>
+    <div style={{ height: "100vh", overflowY: "scroll" }}>
+      <h3 className="mb-4 ">Add Information</h3>
 
-            <div className="sub-components d-flex flex-wrap mb-0">
-              <h4 className="mb-0">College Information</h4>
-              <CustomInput
-                type="text"
-                placeholder="College Area/sqft"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Year of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Amount of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Number of Ac in office"
-                name="title"
-              />
-            </div>
+      <form>
+        <select
+          name="kacheriId"
+          id=""
+          className="w-100 border  py-3 mb-3 "
+          style={{ outlineStyle: "none", borderRadius: "5px" }}
+          onChange={dispa("kacheriId")}
+          // onBlur={formik.handleBlur("kacheriId")}
+          value={formik.values.kacheriId}
+        >
+          <option value="">ક્ચેરી‌નુ‌નામ</option>
+          {kacheriState?.map((item, index) => {
+            return (
+              <option key={index} value={item?._id}>
+                {item?.ક્ચેરી‌નુ‌નામ}
+              </option>
+            );
+          })}
+        </select>
+        <select
+          name="kacheriId"
+          id=""
+          className="w-100 border  py-3 mb-3 "
+          style={{ outlineStyle: "none", borderRadius: "5px" }}
+          // onChange={formik.handleChange("kacheriId")}
+          // onBlur={formik.handleBlur("kacheriId")}
+          // value={formik.values.kacheriId}
+        >
+          <option value="">વિભાગ‌નુ‌નામ</option>
+          {/* {kacheriState?.map((item, index) => {
+                  return (
+                    <option key={index} value={item?._id}>
+                      {item?.ક્ચેરી‌નુ‌નામ}
+                    </option>
+                  );
+                })} */}
+        </select>
+        <select
+          name="kacheriId"
+          id=""
+          className="w-100 border  py-3 mb-3 "
+          style={{ outlineStyle: "none", borderRadius: "5px" }}
+          // onChange={formik.handleChange("kacheriId")}
+          // onBlur={formik.handleBlur("kacheriId")}
+          // value={formik.values.kacheriId}
+        >
+          <option value="">વિભાગ‌નુ‌નામ</option>
+          {/* {kacheriState?.map((item, index) => {
+                  return (
+                    <option key={index} value={item?._id}>
+                      {item?.ક્ચેરી‌નુ‌નામ}
+                    </option>
+                  );
+                })} */}
+        </select>
 
-            <div className="sub-components d-flex flex-wrap mb-0">
-              <h4 className="mb-0">Lebolatory Information</h4>
-              <CustomInput
-                type="text"
-                placeholder="Lebolatory Area/sqft"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Year of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Amount of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Number of Ac in office"
-                name="title"
-              />
-            </div>
+        <CustomInput
+          type="text"
+          placeholder="ઓફિસ નો એરીયા / ચો.ફૂટ"
+          name="title"
+          className="w-100"
+        />
 
-            <div className="sub-components d-flex flex-wrap mb-0">
-              <h4 className="mb-0">Hostel Information</h4>
-              <CustomInput
-                type="text"
-                placeholder="Hostel Area/sqft"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Year of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Amount of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Number of Ac in office"
-                name="title"
-              />
-            </div>
+        <select
+          name="kacheriId"
+          id=""
+          className="w-100 border  py-3 mt-3"
+          style={{ outlineStyle: "none", borderRadius: "5px" }}
+          // onChange={formik.handleChange("kacheriId")}
+          // onBlur={formik.handleBlur("kacheriId")}
+          // value={formik.values.kacheriId}
+        >
+          <option value="">બાધકામ નુ વર્ષ</option>
+          {yearArr?.map((item, index) => {
+            return (
+              <option key={index} value={item?._id}>
+                {item}
+              </option>
+            );
+          })}
+        </select>
 
-            <div className="sub-components d-flex flex-wrap mb-0">
-              <h4 className="mb-0">Store Room Information</h4>
-              <CustomInput
-                type="text"
-                placeholder="Store Room Area/sqft"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Year of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Amount of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Number of Ac in office"
-                name="title"
-              />
-            </div>
+        <CustomInput type="number" placeholder="બાધકામ ની રકમ" name="title" />
+        <CustomInput type="number" placeholder="એ.સી ની સંખ્યા" name="title" />
+        <CustomInput type="text" placeholder="મિલ્કત વેરો" name="title" />
 
-            <div className="sub-components d-flex flex-wrap mb-0">
-              <h4 className="mb-0">Meeting Room Information</h4>
-              <CustomInput
-                type="text"
-                placeholder="Meeting Room Area/sqft"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Year of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Amount of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Number of Ac in office"
-                name="title"
-              />
-            </div>
-
-            <div className="sub-components d-flex flex-wrap mb-0">
-              <h4 className="mb-0">Other Room Information</h4>
-              <CustomInput
-                type="text"
-                placeholder="Other Room Area/sqft"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Year of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Amount of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Number of Ac in office"
-                name="title"
-              />
-            </div>
-
-            <div className="sub-components d-flex flex-wrap mb-0">
-              <h4 className="mb-0">ExamClass Room Information</h4>
-              <CustomInput
-                type="text"
-                placeholder="ExamClass Room Area/sqft"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Year of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Amount of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Number of Ac in office"
-                name="title"
-              />
-            </div>
-
-            <div className="sub-components d-flex flex-wrap mb-0">
-              <h4 className="mb-0">Staff quter Information</h4>
-              <CustomInput
-                type="text"
-                placeholder="Staff quter Area/sqft"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Year of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Amount of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Number of Ac in office"
-                name="title"
-              />
-            </div>
-
-            <div className="sub-components d-flex flex-wrap mb-0">
-              <h4 className="mb-0">labour quter Information</h4>
-              <CustomInput
-                type="text"
-                placeholder="labour quter Area/sqft"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Year of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Amount of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Number of Ac in office"
-                name="title"
-              />
-            </div>
-
-            <div className="sub-components d-flex flex-wrap mb-0">
-              <h4 className="mb-0">Staff Room Information</h4>
-              <CustomInput
-                type="text"
-                placeholder="Staff Room Area/sqft"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Year of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Amount of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Number of Ac in office"
-                name="title"
-              />
-            </div>
-
-            <div className="sub-components d-flex flex-wrap mb-0">
-              <h4 className="mb-0">Auditorium Information</h4>
-              <CustomInput
-                type="text"
-                placeholder="Auditorium  Area/sqft"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Year of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Amount of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Number of Ac in office"
-                name="title"
-              />
-            </div>
-
-            <div className="sub-components d-flex flex-wrap mb-0">
-              <h4 className="mb-0">Record Room Information</h4>
-              <CustomInput
-                type="text"
-                placeholder="Record Room Area/sqft"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Year of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Amount of construction"
-                name="title"
-              />
-              <CustomInput
-                type="text"
-                placeholder="Number of Ac in office"
-                name="title"
-              />
-            </div>
-          </div>
-        </form>
-      </div>
+        <button
+          type="submit"
+          className="btn btn-success border-0 rounded-3 my-5"
+        >
+          ADD
+        </button>
+      </form>
     </div>
   );
 };

@@ -7,21 +7,33 @@ const getAllVibhag = async () => {
 };
 
 const addVibhag = async (data) => {
-  // console.log(data); 
-  const response = await axios.post(`${base_url}vibhag/addvibhag`,data);
+  // console.log(data);
+  const response = await axios.post(`${base_url}vibhag/addvibhag`, data);
   if (response) return response.data;
 };
 
 const delVibhag = async (id) => {
-  console.log(id); 
+  console.log(id);
   const response = await axios.delete(`${base_url}vibhag/${id}`);
+  if (response) return response.data;
+};
+
+const getOneVibhag = async (id) => {
+  const response = await axios.get(`${base_url}vibhag/${id}`);
+  if (response) return response.data;
+};
+
+const getVibhagByKacheri = async (data) => {
+  const response = await axios.get(`${base_url}vibhag/kacheriVibh`, data);
   if (response) return response.data;
 };
 
 const vibhagService = {
   addVibhag,
   getAllVibhag,
-  delVibhag
+  delVibhag,
+  getOneVibhag,
+  getVibhagByKacheri
 };
 
 export default vibhagService;
