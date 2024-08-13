@@ -89,7 +89,7 @@ const AddVibhag = () => {
     <>
       <div>
         <h3 className="mb-4 ">ક્ચેરી‌ ની માહીતી</h3>
-        <div>
+        <div style={{ height: "100vh", overflowY: "scroll" }}>
           <form action="" onSubmit={formik.handleSubmit}>
             <select
               name="kacheriId"

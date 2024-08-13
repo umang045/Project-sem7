@@ -51,10 +51,10 @@ export const getOneVibhag = createAsyncThunk(
 
 export const getVibhagByKacheri = createAsyncThunk(
   "vibhag/getVibahg-byKacheri",
-  async (data, ThunkAPI) => {
+  async (id, ThunkAPI) => {
     try {
-      console.log(data);
-      return await vibhagService.getVibhagByKacheri(data);
+      // console.log(id);
+      return await vibhagService.getVibhagByKacheri(id);
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }

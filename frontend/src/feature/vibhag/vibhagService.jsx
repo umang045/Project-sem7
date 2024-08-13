@@ -23,11 +23,13 @@ const getOneVibhag = async (id) => {
   if (response) return response.data;
 };
 
-const getVibhagByKacheri = async (data) => {
-  console.log(data);
-  const response = await axios.get(`${base_url}vibhag/kacheriVibh`, data);
-  console.log(response.data);
-  
+const getVibhagByKacheri = async (id) => {
+  // console.log(id);
+  const response = await axios.get(`${base_url}vibhag/kacheriVibh`, {
+    params: id,
+  });
+  // console.log(response.data);
+
   if (response) return response.data;
 };
 
@@ -36,7 +38,7 @@ const vibhagService = {
   getAllVibhag,
   delVibhag,
   getOneVibhag,
-  getVibhagByKacheri
+  getVibhagByKacheri,
 };
 
 export default vibhagService;

@@ -9,8 +9,10 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { getOneKacheri } from "../feature/kacheri/kacheriSlice";
+
 const fetchVibhag = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(getAllVibhag());
   }, [getAllVibhag, dispatch]);
@@ -27,7 +29,6 @@ const fetchVibhag = () => {
 const useVibhag = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const vibhagState = fetchVibhag();
   const data1 = [];
   for (let index = 0; index < vibhagState.length; index++) {
@@ -51,7 +52,7 @@ const useVibhag = () => {
           style={{ cursor: "pointer", height: "20px" }}
           onClick={() => {
             const vibhagData = {
-              kacheriId : vibhagState[index]?.kacheriId,
+              kacheriId: vibhagState[index]?.kacheriId,
               વિભાગ‌નુ‌નામ: vibhagState[index]?.વિભાગ‌નુ‌નામ,
               યૂનીટનંબર: vibhagState[index]?.યૂનીટનંબર,
               મકાનનુ‌નામ: vibhagState[index]?.મકાનનુ‌નામ,
@@ -70,7 +71,6 @@ const useVibhag = () => {
             navigate(`/vibhag/${vibhagState[index]._id}`, {
               state: vibhagData,
             });
-
           }}
         />
       ),
@@ -87,7 +87,17 @@ const useVibhag = () => {
       ),
     });
   }
-  return { vibhagState, data1 };
+
+  return { vibhagState, data1, usegetVibhagByKacheri };
 };
 
-export { useVibhag };
+const usegetVibhagByKacheri = () => {
+  const getVibhagbyKacheriState = useSelector(
+    (state) => state?.vibhag?.getVibhagByKacheri?.વિભાગ,
+    shallowEqual
+  );
+  // console.log(getVibhagbyKacheriState);
+  return {getVibhagbyKacheriState};
+};
+
+export { useVibhag, usegetVibhagByKacheri };

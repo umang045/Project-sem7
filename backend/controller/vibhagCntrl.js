@@ -35,7 +35,9 @@ const addVibhag = asyncHandler(async (req, res, next) => {
 
 const vibhagByKacheri = asyncHandler(async (req, res) => {
   try {
-    const { kacheriId } = req.body;
+    const {kacheriId} = req.query;
+    // console.log(kacheriId);
+
     const vibhag = await Kacheri.findById(kacheriId).populate("વિભાગ");
     res.send(vibhag);
   } catch (error) {
