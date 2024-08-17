@@ -77,7 +77,7 @@ const MainLayout = () => {
               {
                 key: "form",
                 icon: <FaSchool />,
-                label: "Educational",
+                label: "વર્ગીકરણ",
               },
             ]}
           />
