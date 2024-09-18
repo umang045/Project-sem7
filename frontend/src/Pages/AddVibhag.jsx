@@ -8,6 +8,8 @@ import { addVibhag } from "../feature/vibhag/vibhagSlice";
 import { useVibhag } from "../Hooks/useVibahg";
 import { useLocation, useParams } from "react-router-dom";
 import { getOneKacheri } from "../feature/kacheri/kacheriSlice";
+import { Button, message, Upload } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 
 let schema = yup.object().shape({
   ક્ચેરી‌નુ‌નામ: yup.string().required("ક્ચેરી‌ નુ‌ નામ જરુરી છે."),
@@ -197,6 +199,7 @@ const AddVibhag = () => {
               onBlr={formik.handleBlur("ઈલેકટ્રીકગ્રાહકનંબર")}
               val={formik.values.ઈલેકટ્રીકગ્રાહકનંબર}
             />
+            <CustomInput type="text" placeholder="મિલ્કત વેરો" name="title" />
             <div>
               <label className="h6 mt-3 p-3 gap-15">ફાયરનીવ્યવસ્થા</label>
               <input
@@ -218,6 +221,17 @@ const AddVibhag = () => {
               />
               ના
             </div>
+            {formik.values.ફાયરનીવ્યવસ્થા === "true" ? (
+              <>
+                {" "}
+                <Upload>
+                  <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                </Upload>
+              </>
+            ) : (
+              <></>
+            )}
+
             <button
               type="submit"
               className="btn btn-success border-0 rounded-3 my-5"

@@ -273,24 +273,7 @@ const AddClgInfo = () => {
           })}
         </select>
 
-        <select
-          name="kacheriId"
-          id=""
-          className="w-100 border  py-3 mb-3 "
-          style={{ outlineStyle: "none", borderRadius: "5px" }}
-        >
-          <option value="">વિગ‌ત</option>
-          <option value="">office</option>
-          <option value="">seminar hall</option>
-          <option value="">exam hall</option>
-          {/* {kacheriState?.map((item, index) => {
-                  return (
-                    <option key={index} value={item?._id}>
-                      {item?.ક્ચેરી‌નુ‌નામ}
-                    </option>
-                  );
-                })} */}
-        </select>
+     
 
         <CustomInput
           type="number"
@@ -319,25 +302,16 @@ const AddClgInfo = () => {
           <Collapse items={floorItems}  />
         )}
 
-        <CustomInput
-          type="text"
-          placeholder="એરીયા / ચો.ફૂટ"
-          name="title"
-          className="w-100"
-        />
+    
+      
 
-     
-
-        <CustomInput type="number" placeholder="બાધકામ ની રકમ" name="title" />
-        <CustomInput type="text" placeholder="મિલ્કત વેરો" name="title" />
-
-        <button
+        {/* <button
           type="button"
           className="btn btn-success border-0 rounded-3 my-5"
           onClick={() => showModal()}
         >
           ADD
-        </button>
+        </button> */}
         <CustomModal
           hideModal={hideModal}
           open={open}
