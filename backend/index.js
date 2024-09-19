@@ -8,10 +8,13 @@ const dbConnection = require("./config/dbConnection");
 
 const propertyRoute = require("./routes/kacheriRoute");
 const vibhagRoute = require("./routes/vibhagRoute");
+const vrgikrnRoute = require("./routes/vargikrnRoute");
 
 dbConnection();
 app.use(cors());
 app.use(express.json());
+
+app.use("/api/vrgikrn", vrgikrnRoute);
 app.use("/api/kacheri", propertyRoute);
 app.use("/api/vibhag", vibhagRoute);
 

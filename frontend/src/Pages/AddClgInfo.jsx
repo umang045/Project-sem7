@@ -11,20 +11,20 @@ const AddClgInfo = () => {
   const [floors, setFloor] = useState(0);
   const [open, setOpen] = useState(false);
   const [showFloor, setShowFloor] = useState(false);
+  const [roomType, setRoomType] = useState("");
+  const [floorNumber, setFloorNumber] = useState(0);
   const [floorInfo, setFloorInfo] = useState({});
   const dispatch = useDispatch();
-
-
 
   const hideModal = () => {
     setOpen(false);
   };
 
-  const showModal = () => {
+  const showModal = (roomType, floorNumber) => {
     setOpen(true);
+    setRoomType(roomType);
+    setFloorNumber(floorNumber);
   };
-
-
 
   const { kacheriState } = useKacheri();
   const { getVibhagbyKacheriState } = usegetVibhagByKacheri();
@@ -32,6 +32,7 @@ const AddClgInfo = () => {
   const floorItems = Array.from({ length: floors }, (_, index) => ({
     key: `floor-${index + 1}`,
     label: `Floor ${index + 1}`,
+    floorNumber: index + 1,
     children: (
       <div>
         <table>
@@ -41,186 +42,288 @@ const AddClgInfo = () => {
           <tr className="">
             <td>office</td>
             <td>
-              <input
-                type="text"
-                className="form-control"
-                onChange={(e) => {
-                  console.log(floorInfo);
-                  setFloorInfo((prev) => {
-                    return {
-                      ...prev,
-                      [`office-${index + 1}`]: e.target.value,
-                    };
-                  });
-
-                  console.log(floorInfo);
-                }}
-              />
-            </td>
-            <td>
-              {floorInfo &&
-                Array.from(
-                  { length: floorInfo[`office-${index + 1}`] },
-                  (_, index) => (
-                    <button
-                      type="button"
-                      key={index}
-                      className="btn btn-success border-0 rounded-3 m-2"
-                      onClick={() => {
-                        showModal();
-                      }}
-                    >
-                      AddOffice {index + 1}
-                    </button>
-                  )
-                )}
+              <button
+                type="button"
+                className="btn btn-success border-0 rounded-3 mt-3"
+                onClick={() =>
+                  showModal("office", floorItems[index].floorNumber)
+                }
+              >
+                +
+              </button>
             </td>
           </tr>
 
           <tr className="">
             <td>college</td>
             <td>
-              <input type="text" className="form-control" />
+              <button
+                type="button"
+                className="btn btn-success border-0 rounded-3 mt-3"
+                onClick={() => showModal("college", floorItems[index].floorNumber)}
+              >
+                +
+              </button>
             </td>
           </tr>
 
           <tr className="">
             <td>laboratory</td>
             <td>
-              <input type="text" className="form-control" />
+              <button
+                type="button"
+                className="btn btn-success border-0 rounded-3 mt-3"
+                onClick={() => showModal("laboratory", floorItems[index].floorNumber)}
+              >
+                +
+              </button>
             </td>
           </tr>
 
           <tr className="">
             <td>hostel</td>
             <td>
-              <input type="text" className="form-control" />
+              <button
+                type="button"
+                className="btn btn-success border-0 rounded-3 mt-3"
+                onClick={() => showModal("hostel", floorItems[index].floorNumber)}
+              >
+                +
+              </button>
             </td>
           </tr>
 
           <tr className="">
             <td>store room</td>
             <td>
-              <input type="text" className="form-control" />
+              <button
+                type="button"
+                className="btn btn-success border-0 rounded-3 mt-3"
+                onClick={() => showModal("store room", floorItems[index].floorNumber)}
+              >
+                +
+              </button>
             </td>
           </tr>
 
           <tr className="">
             <td>meeting room</td>
             <td>
-              <input type="text" className="form-control" />
+              <button
+                type="button"
+                className="btn btn-success border-0 rounded-3 mt-3"
+                onClick={() => showModal("meeting room", floorItems[index].floorNumber)}
+              >
+                +
+              </button>
             </td>
           </tr>
 
           <tr className="">
             <td>room</td>
             <td>
-              <input type="text" className="form-control" />
+              <button
+                type="button"
+                className="btn btn-success border-0 rounded-3 mt-3"
+                onClick={() => showModal("room", floorItems[index].floorNumber)}
+              >
+                +
+              </button>
             </td>
           </tr>
 
           <tr className="">
             <td>exam class room</td>
             <td>
-              <input type="text" className="form-control" />
+              <button
+                type="button"
+                className="btn btn-success border-0 rounded-3 mt-3"
+                onClick={() => showModal("exam class room", floorItems[index].floorNumber)}
+              >
+                +
+              </button>
             </td>
           </tr>
 
           <tr className="">
             <td>staff quaters</td>
             <td>
-              <input type="text" className="form-control" />
+              <button
+                type="button"
+                className="btn btn-success border-0 rounded-3 mt-3"
+                onClick={() => showModal("staff quaters", floorItems[index].floorNumber)}
+              >
+                +
+              </button>
             </td>
           </tr>
 
           <tr className="">
             <td>labour quatars</td>
             <td>
-              <input type="text" className="form-control" />
+              <button
+                type="button"
+                className="btn btn-success border-0 rounded-3 mt-3"
+                onClick={() => showModal("labour quatars", floorItems[index].floorNumber)}
+              >
+                +
+              </button>
             </td>
           </tr>
 
           <tr className="">
             <td>staff room</td>
             <td>
-              <input type="text" className="form-control" />
+              <button
+                type="button"
+                className="btn btn-success border-0 rounded-3 mt-3"
+                onClick={() => showModal("staff room", floorItems[index].floorNumber)}
+              >
+                +
+              </button>
             </td>
           </tr>
 
           <tr className="">
             <td>oditorium</td>
             <td>
-              <input type="text" className="form-control" />
+              <button
+                type="button"
+                className="btn btn-success border-0 rounded-3 mt-3"
+                onClick={() => showModal("oditorium", floorItems[index].floorNumber)}
+              >
+                +
+              </button>
             </td>
           </tr>
 
           <tr className="">
             <td>class room</td>
             <td>
-              <input type="text" className="form-control" />
+              <button
+                type="button"
+                className="btn btn-success border-0 rounded-3 mt-3"
+                onClick={() => showModal("class room", floorItems[index].floorNumber)}
+              >
+                +
+              </button>
             </td>
           </tr>
 
           <tr className="">
             <td>musium</td>
             <td>
-              <input type="text" className="form-control" />
+              <button
+                type="button"
+                className="btn btn-success border-0 rounded-3 mt-3"
+                onClick={() => showModal("musium", floorItems[index].floorNumber)}
+              >
+                +
+              </button>
             </td>
           </tr>
 
           <tr className="">
             <td>kichen</td>
             <td>
-              <input type="text" className="form-control" />
+              <button
+                type="button"
+                className="btn btn-success border-0 rounded-3 mt-3"
+                onClick={() => showModal("kichen", floorItems[index].floorNumber)}
+              >
+                +
+              </button>
             </td>
           </tr>
 
           <tr className="">
             <td>dianing hall</td>
             <td>
-              <input type="text" className="form-control" />
+              <button
+                type="button"
+                className="btn btn-success border-0 rounded-3 mt-3"
+                onClick={() => showModal("dianing hall", floorItems[index].floorNumber)}
+              >
+                +
+              </button>
             </td>
           </tr>
 
           <tr className="">
             <td>shed</td>
             <td>
-              <input type="text" className="form-control" />
+              <button
+                type="button"
+                className="btn btn-success border-0 rounded-3 mt-3"
+                onClick={() => showModal("shed", floorItems[index].floorNumber)}
+              >
+                +
+              </button>
             </td>
           </tr>
 
           <tr className="">
             <td>gense toilet</td>
             <td>
-              <input type="text" className="form-control" />
+              <button
+                type="button"
+                className="btn btn-success border-0 rounded-3 mt-3"
+                onClick={() => showModal("gense toilet", floorItems[index].floorNumber)}
+              >
+                +
+              </button>
             </td>
           </tr>
 
           <tr className="">
             <td>ladies toilet</td>
             <td>
-              <input type="text" className="form-control" />
+              <button
+                type="button"
+                className="btn btn-success border-0 rounded-3 mt-3"
+                onClick={() => showModal("ladies toilet", floorItems[index].floorNumber)}
+              >
+                +
+              </button>
             </td>
           </tr>
 
           <tr className="">
             <td>kacheri vahan</td>
             <td>
-              <input type="text" className="form-control" />
+              <button
+                type="button"
+                className="btn btn-success border-0 rounded-3 mt-3"
+                onClick={() => showModal("kacheri vahan", floorItems[index].floorNumber)}
+              >
+                +
+              </button>
             </td>
           </tr>
 
           <tr className="">
             <td>waiting room</td>
             <td>
-              <input type="text" className="form-control" />
+              <button
+                type="button"
+                className="btn btn-success border-0 rounded-3 mt-3"
+                onClick={() => showModal("waiting room", floorItems[index].floorNumber)}
+              >
+                +
+              </button>
             </td>
           </tr>
 
           <tr className="">
             <td>parking area</td>
             <td>
-              <input type="text" className="form-control" />
+              <button
+                type="button"
+                className="btn btn-success border-0 rounded-3 mt-3"
+                onClick={() => showModal("parking area", floorItems[index].floorNumber)}
+              >
+                +
+              </button>
             </td>
           </tr>
         </table>
@@ -259,9 +362,6 @@ const AddClgInfo = () => {
           id=""
           className="w-100 border  py-3 mb-3 "
           style={{ outlineStyle: "none", borderRadius: "5px" }}
-          // onChange={formik.handleChange("kacheriId")}
-          // onBlur={formik.handleBlur("kacheriId")}
-          // value={formik.values.kacheriId}
         >
           <option value="">વિભાગ‌નુ‌નામ</option>
           {getVibhagbyKacheriState?.map((item, index) => {
@@ -273,15 +373,12 @@ const AddClgInfo = () => {
           })}
         </select>
 
-     
-
         <CustomInput
           type="number"
           placeholder="total floor"
           name="title"
           className="w-100"
           onChng={(e) => {
-            // console.log(floors);
             setFloor(e.target.value);
             setShowFloor(false);
             setFloorInfo({});
@@ -298,28 +395,16 @@ const AddClgInfo = () => {
         >
           Add floor
         </button>
-        {showFloor && (
-          <Collapse items={floorItems}  />
-        )}
+        {showFloor && <Collapse items={floorItems} />}
 
-    
-      
-
-        {/* <button
-          type="button"
-          className="btn btn-success border-0 rounded-3 my-5"
-          onClick={() => showModal()}
-        >
-          ADD
-        </button> */}
         <CustomModal
           hideModal={hideModal}
           open={open}
           performAction={() => {
-            alert("hello");
+            alert(`You are adding a ${roomType} on floor ${floorNumber}`);
             setOpen(false);
           }}
-          title="Are you sure you want alert?"
+          title={`Add ${roomType} on floor ${floorNumber}`}
         />
       </form>
     </div>
