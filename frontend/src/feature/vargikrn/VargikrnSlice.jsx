@@ -29,6 +29,19 @@ export const addInfo = createAsyncThunk(
     }
   }
 );
+//get info by vibhag
+export const getInfoByVibhag = createAsyncThunk(
+  "vrgikrn/get-info",
+  async ( ThunkAPI) => {
+    try {
+      // console.log(data);
+
+      return await vargikrnService.getInfoByVibhag();
+    } catch (error) {
+      return ThunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 const initialState = {
   vargikrn: [],
@@ -45,6 +58,7 @@ export const vargikrnSlice = createSlice({
   extraReducers: (builder) => {
     generateExtraReducers(addFloors, "floors")(builder);
     generateExtraReducers(addInfo, "information")(builder);
+    generateExtraReducers(getInfoByVibhag, "getinfo")(builder);
   },
 });
 

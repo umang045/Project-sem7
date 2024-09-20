@@ -82,10 +82,18 @@ const addFloors = asyncHandler(async (req, res, next) => {
 //delete
 const deleteVargikrn = Factory.deletOne(Vargikrn);
 
+const getInfoByVibhag = asyncHandler(async (req, res, next) => {
+  const { vId } = req.body;
+
+  const vargikarnInfo = await Vargikrn.findOne({ vibhagId: vId });
+  res.json(vargikarnInfo);
+});
+
 module.exports = {
   createVargikaranWithFloors,
   getAllVrgikrn,
   addProperty,
   deleteVargikrn,
   addFloors,
+  getInfoByVibhag,  
 };

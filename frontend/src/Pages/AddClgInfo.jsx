@@ -11,6 +11,8 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { addFloors, addInfo } from "../feature/vargikrn/VargikrnSlice";
 
+import { useIffo } from "../Hooks/useInfo";
+
 let schema = yup.object().shape({
   ક્ચેરી‌નુ‌નામ: yup.string().required("ક્ચેરી‌ નુ‌ નામ જરુરી છે."),
 });
@@ -22,6 +24,9 @@ const AddClgInfo = () => {
   const [roomType, setRoomType] = useState("");
   const [floorNumber, setFloorNumber] = useState(0);
   const [floorInfo, setFloorInfo] = useState({});
+
+  const fetchInfoByVibhag = useIffo();
+  console.log(fetchInfoByVibhag);
 
   const dispatch = useDispatch();
 
@@ -43,7 +48,7 @@ const AddClgInfo = () => {
     floorNumber: index + 1,
     children: (
       <div>
-        <table style={{width:"100%"}}>
+        <table style={{ width: "100%" }}>
           <th>name</th>
           <th>total</th>
 
@@ -62,10 +67,12 @@ const AddClgInfo = () => {
             </td>
           </tr>
 
-          <tr
-            className="w-100 border border-1 "
-            style={{ height: "100px" }}
-          ></tr>
+          <tr className="w-100 border border-1 " style={{ height: "100px" }}>
+            <p>index : </p>
+            <p>area : </p>
+            <p>cost : </p>
+            <p>year : </p>
+          </tr>
 
           <tr className="">
             <td>college</td>

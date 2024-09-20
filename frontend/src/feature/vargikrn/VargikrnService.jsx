@@ -11,9 +11,15 @@ const addInfo = async (data) => {
   if (response) return response.data;
 };
 
+const getInfoByVibhag = async () => {
+  const response = await axios.get(`${base_url}vrgikrn/`, );
+  if (response) return response.data;
+};
+
 const vargikrnService = {
   addFloors,
-  addInfo
+  addInfo,
+  getInfoByVibhag
 };
 
 export default vargikrnService;
