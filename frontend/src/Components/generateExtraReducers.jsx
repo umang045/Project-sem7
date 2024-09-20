@@ -27,6 +27,12 @@ export default function generateExtraReducers(thunk, name) {
           case "updateKacheri":
             toast.success("Kacheri updated Succesfully");
             break;
+          case "information":
+            toast.success("Information added Succesfully");
+            break;
+          case "floors":
+            toast.success("floors added Succesfully");
+            break;
           default:
             break;
         }

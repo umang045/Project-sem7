@@ -2,14 +2,11 @@ const asyncHandler = require("express-async-handler");
 const Vargikrn = require("../model/vargikrnModel");
 const Factory = require("./handleFactory");
 
-//create vargikrn
-const createVargikrn = Factory.createOne(Vargikrn);
-
-
 const createVargikaranWithFloors = asyncHandler(async (req, res, next) => {
-  const numFloors = req.body.numFloors;
+  const { numFloors, vibhagId } = req.body;
 
   const vargikrn = new Vargikrn({
+    vibhagId, // Add vid property here
     માહીતી: Array(numFloors)
       .fill(0)
       .map((_, index) => ({
@@ -24,22 +21,24 @@ const createVargikaranWithFloors = asyncHandler(async (req, res, next) => {
 
   try {
     await vargikrn.save();
-    res.status(201).json({ message: "Floors created successfully" });
+    res.send(vargikrn);
   } catch (error) {
     console.error("Error creating floors:", error);
     res.status(500).json({ message: "Error creating floors" });
   }
 });
-
 //get all vargikrn
 const getAllVrgikrn = Factory.getAll(Vargikrn);
 
 //push info of property
 const addProperty = asyncHandler(async (req, res, next) => {
-  const { floor, index, name, area, cost, year } = req.body;
+  const { floor, index, name, area, cost, year, vibhagId } = req.body;
 
   const vargikrn = await Vargikrn.findOneAndUpdate(
-    { "માહીતી.floor.floornum": floor },
+    {
+      vibhagId, // This is the condition to check vibhagId
+      "માહીતી.floor.floornum": floor, // This is the condition to check floor number
+    },
     {
       $push: {
         "માહીતી.$.floor.0.info": {
@@ -54,13 +53,15 @@ const addProperty = asyncHandler(async (req, res, next) => {
     { new: true }
   );
 
-  res.json(vargikrn);
+  if (!vargikrn) {
+    return res.status(404).json({ message: "No document found" });
+  }
 
-  res.status(201).json({ message: "Property added successfully" });
+  res
+    .status(201)
+    .json({ message: "Property added successfully", data: vargikrn });
 });
-
 //push floor in database
-
 const addFloors = asyncHandler(async (req, res, next) => {
   const { vId, floornum } = req.body;
 
@@ -78,11 +79,11 @@ const addFloors = asyncHandler(async (req, res, next) => {
   res.json(getFloors);
 });
 
+//delete
 const deleteVargikrn = Factory.deletOne(Vargikrn);
 
 module.exports = {
   createVargikaranWithFloors,
-  createVargikrn,
   getAllVrgikrn,
   addProperty,
   deleteVargikrn,

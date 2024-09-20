@@ -26,7 +26,7 @@ const AddkacheriInfo = () => {
     },
     validationSchema: schema,
     onSubmit: (values) => {
-      console.log(id);
+      // console.log(id);
       if (id !== undefined) dispatch(updateKacheri({ values, id }));
       else {
         dispatch(addKacheri(values));

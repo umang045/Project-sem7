@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import CustomInput from "../Components/CustomInput";
 import { useKacheri } from "../Hooks/useKacheri";
 import { useDispatch } from "react-redux";
@@ -7,6 +7,14 @@ import { usegetVibhagByKacheri } from "../Hooks/useVibahg";
 import CustomModal from "../Components/CustomModel";
 import { Collapse } from "antd";
 
+import * as yup from "yup";
+import { useFormik } from "formik";
+import { addFloors, addInfo } from "../feature/vargikrn/VargikrnSlice";
+
+let schema = yup.object().shape({
+  ક્ચેરી‌નુ‌નામ: yup.string().required("ક્ચેરી‌ નુ‌ નામ જરુરી છે."),
+});
+
 const AddClgInfo = () => {
   const [floors, setFloor] = useState(0);
   const [open, setOpen] = useState(false);
@@ -14,6 +22,7 @@ const AddClgInfo = () => {
   const [roomType, setRoomType] = useState("");
   const [floorNumber, setFloorNumber] = useState(0);
   const [floorInfo, setFloorInfo] = useState({});
+
   const dispatch = useDispatch();
 
   const hideModal = () => {
@@ -28,14 +37,13 @@ const AddClgInfo = () => {
 
   const { kacheriState } = useKacheri();
   const { getVibhagbyKacheriState } = usegetVibhagByKacheri();
-
   const floorItems = Array.from({ length: floors }, (_, index) => ({
     key: `floor-${index + 1}`,
     label: `Floor ${index + 1}`,
     floorNumber: index + 1,
     children: (
       <div>
-        <table>
+        <table style={{width:"100%"}}>
           <th>name</th>
           <th>total</th>
 
@@ -54,13 +62,20 @@ const AddClgInfo = () => {
             </td>
           </tr>
 
+          <tr
+            className="w-100 border border-1 "
+            style={{ height: "100px" }}
+          ></tr>
+
           <tr className="">
             <td>college</td>
             <td>
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
-                onClick={() => showModal("college", floorItems[index].floorNumber)}
+                onClick={() =>
+                  showModal("college", floorItems[index].floorNumber)
+                }
               >
                 +
               </button>
@@ -73,7 +88,9 @@ const AddClgInfo = () => {
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
-                onClick={() => showModal("laboratory", floorItems[index].floorNumber)}
+                onClick={() =>
+                  showModal("laboratory", floorItems[index].floorNumber)
+                }
               >
                 +
               </button>
@@ -86,7 +103,9 @@ const AddClgInfo = () => {
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
-                onClick={() => showModal("hostel", floorItems[index].floorNumber)}
+                onClick={() =>
+                  showModal("hostel", floorItems[index].floorNumber)
+                }
               >
                 +
               </button>
@@ -99,7 +118,9 @@ const AddClgInfo = () => {
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
-                onClick={() => showModal("store room", floorItems[index].floorNumber)}
+                onClick={() =>
+                  showModal("store room", floorItems[index].floorNumber)
+                }
               >
                 +
               </button>
@@ -112,7 +133,9 @@ const AddClgInfo = () => {
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
-                onClick={() => showModal("meeting room", floorItems[index].floorNumber)}
+                onClick={() =>
+                  showModal("meeting room", floorItems[index].floorNumber)
+                }
               >
                 +
               </button>
@@ -138,7 +161,9 @@ const AddClgInfo = () => {
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
-                onClick={() => showModal("exam class room", floorItems[index].floorNumber)}
+                onClick={() =>
+                  showModal("exam class room", floorItems[index].floorNumber)
+                }
               >
                 +
               </button>
@@ -151,7 +176,9 @@ const AddClgInfo = () => {
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
-                onClick={() => showModal("staff quaters", floorItems[index].floorNumber)}
+                onClick={() =>
+                  showModal("staff quaters", floorItems[index].floorNumber)
+                }
               >
                 +
               </button>
@@ -164,7 +191,9 @@ const AddClgInfo = () => {
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
-                onClick={() => showModal("labour quatars", floorItems[index].floorNumber)}
+                onClick={() =>
+                  showModal("labour quatars", floorItems[index].floorNumber)
+                }
               >
                 +
               </button>
@@ -177,7 +206,9 @@ const AddClgInfo = () => {
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
-                onClick={() => showModal("staff room", floorItems[index].floorNumber)}
+                onClick={() =>
+                  showModal("staff room", floorItems[index].floorNumber)
+                }
               >
                 +
               </button>
@@ -190,7 +221,9 @@ const AddClgInfo = () => {
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
-                onClick={() => showModal("oditorium", floorItems[index].floorNumber)}
+                onClick={() =>
+                  showModal("oditorium", floorItems[index].floorNumber)
+                }
               >
                 +
               </button>
@@ -203,7 +236,9 @@ const AddClgInfo = () => {
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
-                onClick={() => showModal("class room", floorItems[index].floorNumber)}
+                onClick={() =>
+                  showModal("class room", floorItems[index].floorNumber)
+                }
               >
                 +
               </button>
@@ -216,7 +251,9 @@ const AddClgInfo = () => {
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
-                onClick={() => showModal("musium", floorItems[index].floorNumber)}
+                onClick={() =>
+                  showModal("musium", floorItems[index].floorNumber)
+                }
               >
                 +
               </button>
@@ -229,7 +266,9 @@ const AddClgInfo = () => {
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
-                onClick={() => showModal("kichen", floorItems[index].floorNumber)}
+                onClick={() =>
+                  showModal("kichen", floorItems[index].floorNumber)
+                }
               >
                 +
               </button>
@@ -242,7 +281,9 @@ const AddClgInfo = () => {
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
-                onClick={() => showModal("dianing hall", floorItems[index].floorNumber)}
+                onClick={() =>
+                  showModal("dianing hall", floorItems[index].floorNumber)
+                }
               >
                 +
               </button>
@@ -268,7 +309,9 @@ const AddClgInfo = () => {
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
-                onClick={() => showModal("gense toilet", floorItems[index].floorNumber)}
+                onClick={() =>
+                  showModal("gense toilet", floorItems[index].floorNumber)
+                }
               >
                 +
               </button>
@@ -281,7 +324,9 @@ const AddClgInfo = () => {
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
-                onClick={() => showModal("ladies toilet", floorItems[index].floorNumber)}
+                onClick={() =>
+                  showModal("ladies toilet", floorItems[index].floorNumber)
+                }
               >
                 +
               </button>
@@ -294,7 +339,9 @@ const AddClgInfo = () => {
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
-                onClick={() => showModal("kacheri vahan", floorItems[index].floorNumber)}
+                onClick={() =>
+                  showModal("kacheri vahan", floorItems[index].floorNumber)
+                }
               >
                 +
               </button>
@@ -307,7 +354,9 @@ const AddClgInfo = () => {
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
-                onClick={() => showModal("waiting room", floorItems[index].floorNumber)}
+                onClick={() =>
+                  showModal("waiting room", floorItems[index].floorNumber)
+                }
               >
                 +
               </button>
@@ -320,7 +369,9 @@ const AddClgInfo = () => {
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
-                onClick={() => showModal("parking area", floorItems[index].floorNumber)}
+                onClick={() =>
+                  showModal("parking area", floorItems[index].floorNumber)
+                }
               >
                 +
               </button>
@@ -330,6 +381,8 @@ const AddClgInfo = () => {
       </div>
     ),
   }));
+
+  // console.log(floors,vibhagId);
 
   return (
     <div style={{ height: "100vh", overflowY: "scroll" }}>
@@ -343,14 +396,19 @@ const AddClgInfo = () => {
           style={{ outlineStyle: "none", borderRadius: "5px" }}
           onChange={(e) => {
             const id = e.target.value;
-            // console.log(id);
             dispatch(getVibhagByKacheri({ kacheriId: id }));
           }}
         >
           <option value="">ક્ચેરી‌નુ‌નામ</option>
           {kacheriState?.map((item, index) => {
             return (
-              <option key={index} value={item?._id}>
+              <option
+                key={index}
+                value={item?._id}
+                onChange={() => {
+                  setVibhagId(item?._id);
+                }}
+              >
                 {item?.ક્ચેરી‌નુ‌નામ}
               </option>
             );
@@ -358,7 +416,7 @@ const AddClgInfo = () => {
         </select>
 
         <select
-          name="kacheriId"
+          name="vibhagId"
           id=""
           className="w-100 border  py-3 mb-3 "
           style={{ outlineStyle: "none", borderRadius: "5px" }}
@@ -376,7 +434,7 @@ const AddClgInfo = () => {
         <CustomInput
           type="number"
           placeholder="total floor"
-          name="title"
+          name="floors"
           className="w-100"
           onChng={(e) => {
             setFloor(e.target.value);
@@ -391,6 +449,17 @@ const AddClgInfo = () => {
           className="btn btn-success border-0 rounded-3 mt-3"
           onClick={() => {
             setShowFloor(true);
+            const selectedVibhagId = document.querySelector(
+              'select[name="vibhagId"]'
+            ).value;
+            console.log(selectedVibhagId);
+            console.log(floors);
+            dispatch(
+              addFloors({
+                numFloors: Number.parseInt(floors),
+                vibhagId: selectedVibhagId,
+              })
+            );
           }}
         >
           Add floor
@@ -401,8 +470,24 @@ const AddClgInfo = () => {
           hideModal={hideModal}
           open={open}
           performAction={() => {
-            alert(`You are adding a ${roomType} on floor ${floorNumber}`);
-            setOpen(false);
+            const selectedVibhagId = document.querySelector(
+              'select[name="vibhagId"]'
+            ).value;
+            const area = document.querySelector('input[name="area"]').value;
+            const cost = document.querySelector('input[name="cost"]').value;
+            const year = document.querySelector('select[name="year"]').value;
+            dispatch(
+              addInfo({
+                vibhagId: selectedVibhagId,
+                floor: Number.parseInt(floorNumber),
+                index: 1,
+                name: `${roomType}`,
+                area: Number.parseInt(area),
+                cost: Number.parseInt(cost),
+                year: Number.parseInt(year),
+              })
+            );
+            hideModal();
           }}
           title={`Add ${roomType} on floor ${floorNumber}`}
         />

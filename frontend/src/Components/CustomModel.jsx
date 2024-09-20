@@ -26,11 +26,11 @@ function CustomModal(props) {
         <CustomInput
           type="text"
           placeholder="એરીયા / ચો.ફૂટ"
-          name="title"
+          name="area"
           className="w-100"
         />
         <select
-          name="kacheriId"
+          name="year"
           id=""
           className="w-100 border  py-3 mt-3"
           style={{ outlineStyle: "none", borderRadius: "5px" }}
@@ -44,7 +44,7 @@ function CustomModal(props) {
             );
           })}
         </select>
-        <CustomInput type="number" placeholder="બાધકામ ની રકમ" name="title" />
+        <CustomInput type="number" placeholder="બાધકામ ની રકમ" name="cost" />
       </div>
     </Modal>
   );
