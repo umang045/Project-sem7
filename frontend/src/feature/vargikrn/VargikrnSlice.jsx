@@ -29,14 +29,28 @@ export const addInfo = createAsyncThunk(
     }
   }
 );
+
 //get info by vibhag
 export const getInfoByVibhag = createAsyncThunk(
   "vrgikrn/get-info",
-  async ( ThunkAPI) => {
+  async (ThunkAPI) => {
     try {
       // console.log(data);
 
       return await vargikrnService.getInfoByVibhag();
+    } catch (error) {
+      return ThunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+//get floors
+export const getFloors = createAsyncThunk(
+  "vrgikrn/get-floors",
+  async (id, ThunkAPI) => {
+    try {
+      // console.log(data);
+      return await vargikrnService.getFloors(id);
     } catch (error) {
       return ThunkAPI.rejectWithValue(error);
     }
@@ -59,6 +73,7 @@ export const vargikrnSlice = createSlice({
     generateExtraReducers(addFloors, "floors")(builder);
     generateExtraReducers(addInfo, "information")(builder);
     generateExtraReducers(getInfoByVibhag, "getinfo")(builder);
+    generateExtraReducers(getFloors, "getfloors")(builder);
   },
 });
 

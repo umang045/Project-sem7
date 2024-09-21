@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomInput from "../Components/CustomInput";
 import { useKacheri } from "../Hooks/useKacheri";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getVibhagByKacheri } from "../feature/vibhag/vibhagSlice";
 import { usegetVibhagByKacheri } from "../Hooks/useVibahg";
 import CustomModal from "../Components/CustomModel";
@@ -9,7 +9,11 @@ import { Collapse } from "antd";
 
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { addFloors, addInfo } from "../feature/vargikrn/VargikrnSlice";
+import {
+  addFloors,
+  addInfo,
+  getFloors,
+} from "../feature/vargikrn/VargikrnSlice";
 
 import { useIffo } from "../Hooks/useInfo";
 
@@ -18,16 +22,16 @@ let schema = yup.object().shape({
 });
 
 const AddClgInfo = () => {
-  const [floors, setFloor] = useState(0);
   const [open, setOpen] = useState(false);
-  const [showFloor, setShowFloor] = useState(false);
   const [roomType, setRoomType] = useState("");
   const [floorNumber, setFloorNumber] = useState(0);
   const [floorInfo, setFloorInfo] = useState({});
+  const [floors, setFloors] = useState([]);
+  const [floor, setFloor] = useState(0);
+  const [vibhagId, setVibhagId] = useState("");
+  const [showFloor, setShowFloor] = useState(false);
 
   const fetchInfoByVibhag = useIffo();
-  console.log(fetchInfoByVibhag);
-
   const dispatch = useDispatch();
 
   const hideModal = () => {
@@ -42,7 +46,18 @@ const AddClgInfo = () => {
 
   const { kacheriState } = useKacheri();
   const { getVibhagbyKacheriState } = usegetVibhagByKacheri();
-  const floorItems = Array.from({ length: floors }, (_, index) => ({
+
+  const getFloorsbyid = useSelector((state) => state?.vargikrn?.getfloors);
+  // console.log(getFloorsbyid[0]?.માહીતી?.length);
+
+  useEffect(() => {
+    if (getFloorsbyid && getFloorsbyid[0]?.માહીતી?.length != undefined) {
+      setFloor(getFloorsbyid[0]?.માહીતી?.length);
+      setShowFloor(true);
+    } else setShowFloor(false);
+  }, [getFloorsbyid]);
+
+  const floorItems = Array.from({ length: floor }, (_, index) => ({
     key: `floor-${index + 1}`,
     label: `Floor ${index + 1}`,
     floorNumber: index + 1,
@@ -67,12 +82,14 @@ const AddClgInfo = () => {
             </td>
           </tr>
 
-          <tr className="w-100 border border-1 " style={{ height: "100px" }}>
-            <p>index : </p>
-            <p>area : </p>
-            <p>cost : </p>
-            <p>year : </p>
-          </tr>
+          {/* <tr className="w-100 border border-1 " style={{ height: "100px" }}>
+            <div>
+              <p>index : </p>
+              <p>area : </p>
+              <p>cost : </p>
+              <p>year : </p>
+            </div>
+          </tr> */}
 
           <tr className="">
             <td>college</td>
@@ -414,6 +431,8 @@ const AddClgInfo = () => {
                 value={item?._id}
                 onChange={() => {
                   setVibhagId(item?._id);
+                  setFloor(0);
+                  setShowFloor(false) ;
                 }}
               >
                 {item?.ક્ચેરી‌નુ‌નામ}
@@ -427,6 +446,10 @@ const AddClgInfo = () => {
           id=""
           className="w-100 border  py-3 mb-3 "
           style={{ outlineStyle: "none", borderRadius: "5px" }}
+          // onChange={(e)=>{dispatch(getFloors())}}
+          onChange={(e) => {
+            dispatch(getFloors(e.target.value));
+          }}
         >
           <option value="">વિભાગ‌નુ‌નામ</option>
           {getVibhagbyKacheriState?.map((item, index) => {
@@ -442,6 +465,7 @@ const AddClgInfo = () => {
           type="number"
           placeholder="total floor"
           name="floors"
+          value={floor}
           className="w-100"
           onChng={(e) => {
             setFloor(e.target.value);
@@ -452,6 +476,7 @@ const AddClgInfo = () => {
         />
 
         <button
+          name="addfloorbtn"
           type="button"
           className="btn btn-success border-0 rounded-3 mt-3"
           onClick={() => {
@@ -459,11 +484,9 @@ const AddClgInfo = () => {
             const selectedVibhagId = document.querySelector(
               'select[name="vibhagId"]'
             ).value;
-            console.log(selectedVibhagId);
-            console.log(floors);
             dispatch(
               addFloors({
-                numFloors: Number.parseInt(floors),
+                numFloors: Number.parseInt(floor),
                 vibhagId: selectedVibhagId,
               })
             );
@@ -471,6 +494,7 @@ const AddClgInfo = () => {
         >
           Add floor
         </button>
+
         {showFloor && <Collapse items={floorItems} />}
 
         <CustomModal

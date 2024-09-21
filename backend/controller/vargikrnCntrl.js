@@ -89,11 +89,25 @@ const getInfoByVibhag = asyncHandler(async (req, res, next) => {
   res.json(vargikarnInfo);
 });
 
+// floorsController.js
+
+const getFloors = asyncHandler(async (req, res, next) => {
+  const vibhagId = req.params.vibhagId;
+  try {
+    const floors = await Vargikrn.find({ vibhagId });
+    res.json(floors);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching floors data" });
+  }
+});
+
 module.exports = {
   createVargikaranWithFloors,
   getAllVrgikrn,
   addProperty,
   deleteVargikrn,
   addFloors,
-  getInfoByVibhag,  
+  getInfoByVibhag,
+  getFloors,
 };
