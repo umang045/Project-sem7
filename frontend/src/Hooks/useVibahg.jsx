@@ -22,7 +22,6 @@ const fetchVibhag = () => {
     shallowEqual
   );
   //   console.log(fetchVibhagState);
-
   return fetchVibhagState;
 };
 
@@ -31,7 +30,7 @@ const useVibhag = () => {
   const navigate = useNavigate();
   const vibhagState = fetchVibhag();
   const data1 = [];
-  for (let index = 0; index < vibhagState.length; index++) {
+  for (let index = 0; index < vibhagState?.length; index++) {
     data1.push({
       index: index + 1,
       name: `${vibhagState[index]?.વિભાગ‌નુ‌નામ}`,

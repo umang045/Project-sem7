@@ -6,9 +6,9 @@ import { getVibhagByKacheri } from "../feature/vibhag/vibhagSlice";
 import { usegetVibhagByKacheri } from "../Hooks/useVibahg";
 import CustomModal from "../Components/CustomModel";
 import { Collapse } from "antd";
-
+import { ResponsiveTable } from "responsive-table-react";
 import * as yup from "yup";
-import { useFormik } from "formik";
+import { useVibhag } from "../Hooks/useVibahg";
 import {
   addFloors,
   addInfo,
@@ -17,9 +17,51 @@ import {
 
 import { useIffo } from "../Hooks/useInfo";
 
-let schema = yup.object().shape({
-  ક્ચેરી‌નુ‌નામ: yup.string().required("ક્ચેરી‌ નુ‌ નામ જરુરી છે."),
-});
+
+const columns = [
+  {
+    id: "index",
+    text: "ક્રમ",
+  },
+  {
+    id: "name",
+    text: "ક્ચેરી‌ નુ‌ નામ",
+  },
+  {
+    id: "name",
+    text: "વિભાગ‌ નુ‌ નામ",
+  },
+  {
+    id: "makan",
+    text: "માણ ક્રમ",
+  },
+  {
+    id: "newmilkat",
+    text: "નામ",
+  },
+  {
+    id: "bill1",
+    text: "એરિયા (ચો.ફૂટ)",
+  },
+  {
+    id: "bill2",
+    text: "વર્ષ",
+  },
+  {
+    id: "totalbill",
+    text: "બિલ ની કુલ રકમ",
+  },
+  {
+    id: "edit",
+    text: "Edit",
+  },
+  {
+    id: "delete",
+    text: "Delete",
+  },
+];
+
+
 
 const AddClgInfo = () => {
   const [open, setOpen] = useState(false);
@@ -57,12 +99,18 @@ const AddClgInfo = () => {
     } else setShowFloor(false);
   }, [getFloorsbyid]);
 
+  // console.log(getFloorsbyid[0].માહીતી);
+
+
   const floorItems = Array.from({ length: floor }, (_, index) => ({
     key: `floor-${index + 1}`,
     label: `Floor ${index + 1}`,
     floorNumber: index + 1,
     children: (
+
+
       <div>
+
         <table style={{ width: "100%" }}>
           <th>name</th>
           <th>total</th>
@@ -81,15 +129,7 @@ const AddClgInfo = () => {
               </button>
             </td>
           </tr>
-
-          {/* <tr className="w-100 border border-1 " style={{ height: "100px" }}>
-            <div>
-              <p>index : </p>
-              <p>area : </p>
-              <p>cost : </p>
-              <p>year : </p>
-            </div>
-          </tr> */}
+          {/* {console.log(floor)} */}
 
           <tr className="">
             <td>college</td>
@@ -406,10 +446,9 @@ const AddClgInfo = () => {
     ),
   }));
 
-  // console.log(floors,vibhagId);
-
+  const { data1 } = useVibhag();
   return (
-    <div style={{ height: "100vh", overflowY: "scroll" }}>
+    <div style={{ height: "90vh", overflowY: "scroll" }}>
       <h3 className="mb-4 ">Add Information</h3>
 
       <form>
@@ -432,7 +471,7 @@ const AddClgInfo = () => {
                 onChange={() => {
                   setVibhagId(item?._id);
                   setFloor(0);
-                  setShowFloor(false) ;
+                  setShowFloor(false);
                 }}
               >
                 {item?.ક્ચેરી‌નુ‌નામ}
@@ -465,13 +504,12 @@ const AddClgInfo = () => {
           type="number"
           placeholder="total floor"
           name="floors"
-          value={floor}
+          val={floor}
           className="w-100"
           onChng={(e) => {
             setFloor(e.target.value);
             setShowFloor(false);
             setFloorInfo({});
-            // console.log(floorInfo);
           }}
         />
 
@@ -523,6 +561,9 @@ const AddClgInfo = () => {
           title={`Add ${roomType} on floor ${floorNumber}`}
         />
       </form>
+      <div  className="w-100" style={{ overflowX: "scroll",marginTop:"20px" }}>
+        <ResponsiveTable columns={columns}  data={data1}/>
+      </div>
     </div>
   );
 };
