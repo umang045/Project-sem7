@@ -60,7 +60,6 @@ const useVibhag = () => {
               બિલનંબર_1: vibhagState[index]?.બિલનંબર_1,
               બિલનંબર_2: vibhagState[index]?.બિલનંબર_2,
               બિલનીકુલરકમ: vibhagState[index]?.બિલનીકુલરકમ,
-              મકાનનોઉપયોગ: vibhagState[index]?.મકાનનોઉપયોગ,
               ગેસલાઈનગ્રાહકનંબર: vibhagState[index]?.ગેસલાઈનગ્રાહકનંબર,
               ઈલેકટ્રીકગ્રાહકનંબર: vibhagState[index]?.ઈલેકટ્રીકગ્રાહકનંબર,
               મકાનનોઉપયોગ: vibhagState[index]?.મકાનનોઉપયોગ,

@@ -7,8 +7,10 @@ import { usegetVibhagByKacheri } from "../Hooks/useVibahg";
 import CustomModal from "../Components/CustomModel";
 import { Collapse } from "antd";
 import { ResponsiveTable } from "responsive-table-react";
-import * as yup from "yup";
 import { useVibhag } from "../Hooks/useVibahg";
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+
 import {
   addFloors,
   addInfo,
@@ -24,44 +26,30 @@ const columns = [
     text: "ક્રમ",
   },
   {
-    id: "name",
-    text: "ક્ચેરી‌ નુ‌ નામ",
-  },
-  {
-    id: "name",
-    text: "વિભાગ‌ નુ‌ નામ",
-  },
-  {
-    id: "makan",
+    id: "floor",
     text: "માણ ક્રમ",
   },
   {
-    id: "newmilkat",
+    id: "name",
     text: "નામ",
   },
   {
-    id: "bill1",
+    id: "area",
     text: "એરિયા (ચો.ફૂટ)",
   },
   {
-    id: "bill2",
+    id: "year",
     text: "વર્ષ",
   },
   {
-    id: "totalbill",
-    text: "બિલ ની કુલ રકમ",
-  },
-  {
-    id: "edit",
-    text: "Edit",
+    id: "cost",
+    text: "કુલ રકમ",
   },
   {
     id: "delete",
     text: "Delete",
   },
 ];
-
-
 
 const AddClgInfo = () => {
   const [open, setOpen] = useState(false);
@@ -90,16 +78,36 @@ const AddClgInfo = () => {
   const { getVibhagbyKacheriState } = usegetVibhagByKacheri();
 
   const getFloorsbyid = useSelector((state) => state?.vargikrn?.getfloors);
-  // console.log(getFloorsbyid[0]?.માહીતી?.length);
-
+  //  console.log(getFloorsbyid[0]?.માહીતી);
   useEffect(() => {
     if (getFloorsbyid && getFloorsbyid[0]?.માહીતી?.length != undefined) {
       setFloor(getFloorsbyid[0]?.માહીતી?.length);
       setShowFloor(true);
     } else setShowFloor(false);
+
   }, [getFloorsbyid]);
 
-  // console.log(getFloorsbyid[0].માહીતી);
+  let floordata = [];
+  if (getFloorsbyid && getFloorsbyid[0] && getFloorsbyid[0].માહીતી && getFloorsbyid[0].માહીતી.length > 0) {
+    for (let index = 0; index < getFloorsbyid[0]?.માહીતી?.length; index++) {
+      getFloorsbyid[0]?.માહીતી[index]?.floor[0]?.info.map((item, idx) => {
+        floordata.push({
+          index: idx + 1,
+          floor: index + 1,
+          name: item.name,
+          area: item.area,
+          cost: item.cost,
+          year: item.year,
+
+          delete: (
+            <MdDelete
+              style={{ cursor: "pointer", height: "20px" }}
+            />
+          ),
+        })
+      })
+    }
+  }
 
 
   const floorItems = Array.from({ length: floor }, (_, index) => ({
@@ -107,22 +115,19 @@ const AddClgInfo = () => {
     label: `Floor ${index + 1}`,
     floorNumber: index + 1,
     children: (
-
-
       <div>
-
         <table style={{ width: "100%" }}>
           <th>name</th>
           <th>total</th>
 
           <tr className="">
-            <td>office</td>
+            <td>ઓફિસ</td>
             <td>
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
                 onClick={() =>
-                  showModal("office", floorItems[index].floorNumber)
+                  showModal("ઓફિસ", floorItems[index].floorNumber)
                 }
               >
                 +
@@ -132,13 +137,13 @@ const AddClgInfo = () => {
           {/* {console.log(floor)} */}
 
           <tr className="">
-            <td>college</td>
+            <td>કોલેજ</td>
             <td>
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
                 onClick={() =>
-                  showModal("college", floorItems[index].floorNumber)
+                  showModal("કોલેજ", floorItems[index].floorNumber)
                 }
               >
                 +
@@ -147,13 +152,13 @@ const AddClgInfo = () => {
           </tr>
 
           <tr className="">
-            <td>laboratory</td>
+            <td>લૅબોરેટરી</td>
             <td>
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
                 onClick={() =>
-                  showModal("laboratory", floorItems[index].floorNumber)
+                  showModal("લૅબોરેટરી", floorItems[index].floorNumber)
                 }
               >
                 +
@@ -162,13 +167,13 @@ const AddClgInfo = () => {
           </tr>
 
           <tr className="">
-            <td>hostel</td>
+            <td>હોસ્ટેલ</td>
             <td>
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
                 onClick={() =>
-                  showModal("hostel", floorItems[index].floorNumber)
+                  showModal("હોસ્ટેલ", floorItems[index].floorNumber)
                 }
               >
                 +
@@ -177,13 +182,13 @@ const AddClgInfo = () => {
           </tr>
 
           <tr className="">
-            <td>store room</td>
+            <td>સ્ટોર રૂમ</td>
             <td>
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
                 onClick={() =>
-                  showModal("store room", floorItems[index].floorNumber)
+                  showModal("સ્ટોર રૂમ", floorItems[index].floorNumber)
                 }
               >
                 +
@@ -192,13 +197,13 @@ const AddClgInfo = () => {
           </tr>
 
           <tr className="">
-            <td>meeting room</td>
+            <td>મીટિંગ રૂમ</td>
             <td>
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
                 onClick={() =>
-                  showModal("meeting room", floorItems[index].floorNumber)
+                  showModal("મીટિંગ રૂમ", floorItems[index].floorNumber)
                 }
               >
                 +
@@ -207,12 +212,12 @@ const AddClgInfo = () => {
           </tr>
 
           <tr className="">
-            <td>room</td>
+            <td>રૂમ</td>
             <td>
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
-                onClick={() => showModal("room", floorItems[index].floorNumber)}
+                onClick={() => showModal("રૂમ", floorItems[index].floorNumber)}
               >
                 +
               </button>
@@ -220,13 +225,13 @@ const AddClgInfo = () => {
           </tr>
 
           <tr className="">
-            <td>exam class room</td>
+            <td>એક્જામ રૂમ</td>
             <td>
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
                 onClick={() =>
-                  showModal("exam class room", floorItems[index].floorNumber)
+                  showModal("એક્જામ રૂમ", floorItems[index].floorNumber)
                 }
               >
                 +
@@ -235,13 +240,13 @@ const AddClgInfo = () => {
           </tr>
 
           <tr className="">
-            <td>staff quaters</td>
+            <td>સ્ટાફ કુઆટાર્સ</td>
             <td>
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
                 onClick={() =>
-                  showModal("staff quaters", floorItems[index].floorNumber)
+                  showModal("સ્ટાફ કુઆટાર્સ", floorItems[index].floorNumber)
                 }
               >
                 +
@@ -250,13 +255,13 @@ const AddClgInfo = () => {
           </tr>
 
           <tr className="">
-            <td>labour quatars</td>
+            <td>લેબોર કુઆટાર્સ</td>
             <td>
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
                 onClick={() =>
-                  showModal("labour quatars", floorItems[index].floorNumber)
+                  showModal("લેબોર કુઆટાર્સ", floorItems[index].floorNumber)
                 }
               >
                 +
@@ -265,13 +270,13 @@ const AddClgInfo = () => {
           </tr>
 
           <tr className="">
-            <td>staff room</td>
+            <td>સ્ટાફ રૂમ</td>
             <td>
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
                 onClick={() =>
-                  showModal("staff room", floorItems[index].floorNumber)
+                  showModal("સ્ટાફ રૂમ", floorItems[index].floorNumber)
                 }
               >
                 +
@@ -280,13 +285,13 @@ const AddClgInfo = () => {
           </tr>
 
           <tr className="">
-            <td>oditorium</td>
+            <td>ઓડિટોરિયમ</td>
             <td>
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
                 onClick={() =>
-                  showModal("oditorium", floorItems[index].floorNumber)
+                  showModal("ઓડિટોરિયમ", floorItems[index].floorNumber)
                 }
               >
                 +
@@ -295,13 +300,13 @@ const AddClgInfo = () => {
           </tr>
 
           <tr className="">
-            <td>class room</td>
+            <td>ક્લાસ રૂમ</td>
             <td>
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
                 onClick={() =>
-                  showModal("class room", floorItems[index].floorNumber)
+                  showModal("ક્લાસ રૂમ", floorItems[index].floorNumber)
                 }
               >
                 +
@@ -310,13 +315,13 @@ const AddClgInfo = () => {
           </tr>
 
           <tr className="">
-            <td>musium</td>
+            <td>મ્યુસીયમ</td>
             <td>
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
                 onClick={() =>
-                  showModal("musium", floorItems[index].floorNumber)
+                  showModal("મ્યુસીયમ", floorItems[index].floorNumber)
                 }
               >
                 +
@@ -325,13 +330,13 @@ const AddClgInfo = () => {
           </tr>
 
           <tr className="">
-            <td>kichen</td>
+            <td>કિચન</td>
             <td>
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
                 onClick={() =>
-                  showModal("kichen", floorItems[index].floorNumber)
+                  showModal("કિચન", floorItems[index].floorNumber)
                 }
               >
                 +
@@ -340,13 +345,13 @@ const AddClgInfo = () => {
           </tr>
 
           <tr className="">
-            <td>dianing hall</td>
+            <td>ડાયનીંગ હોલ</td>
             <td>
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
                 onClick={() =>
-                  showModal("dianing hall", floorItems[index].floorNumber)
+                  showModal("ડાયનીંગ હોલ", floorItems[index].floorNumber)
                 }
               >
                 +
@@ -355,12 +360,12 @@ const AddClgInfo = () => {
           </tr>
 
           <tr className="">
-            <td>shed</td>
+            <td>શેડ</td>
             <td>
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
-                onClick={() => showModal("shed", floorItems[index].floorNumber)}
+                onClick={() => showModal("શેડ", floorItems[index].floorNumber)}
               >
                 +
               </button>
@@ -368,13 +373,13 @@ const AddClgInfo = () => {
           </tr>
 
           <tr className="">
-            <td>gense toilet</td>
+            <td>જેનસ ટોઇલેટ</td>
             <td>
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
                 onClick={() =>
-                  showModal("gense toilet", floorItems[index].floorNumber)
+                  showModal("જેનસ ટોઇલેટ", floorItems[index].floorNumber)
                 }
               >
                 +
@@ -383,13 +388,13 @@ const AddClgInfo = () => {
           </tr>
 
           <tr className="">
-            <td>ladies toilet</td>
+            <td>લેડિસ ટોઇલેટ</td>
             <td>
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
                 onClick={() =>
-                  showModal("ladies toilet", floorItems[index].floorNumber)
+                  showModal("લેડિસ ટોઇલેટ", floorItems[index].floorNumber)
                 }
               >
                 +
@@ -398,13 +403,13 @@ const AddClgInfo = () => {
           </tr>
 
           <tr className="">
-            <td>kacheri vahan</td>
+            <td>કચેરી વાહન</td>
             <td>
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
                 onClick={() =>
-                  showModal("kacheri vahan", floorItems[index].floorNumber)
+                  showModal("કચેરી વાહન", floorItems[index].floorNumber)
                 }
               >
                 +
@@ -413,13 +418,13 @@ const AddClgInfo = () => {
           </tr>
 
           <tr className="">
-            <td>waiting room</td>
+            <td>વેટિંગ રૂમ</td>
             <td>
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
                 onClick={() =>
-                  showModal("waiting room", floorItems[index].floorNumber)
+                  showModal("વેટિંગ રૂમ", floorItems[index].floorNumber)
                 }
               >
                 +
@@ -428,13 +433,13 @@ const AddClgInfo = () => {
           </tr>
 
           <tr className="">
-            <td>parking area</td>
+            <td>પાર્કિંગ એરિયા</td>
             <td>
               <button
                 type="button"
                 className="btn btn-success border-0 rounded-3 mt-3"
                 onClick={() =>
-                  showModal("parking area", floorItems[index].floorNumber)
+                  showModal("પાર્કિંગ એરિયા", floorItems[index].floorNumber)
                 }
               >
                 +
@@ -561,8 +566,8 @@ const AddClgInfo = () => {
           title={`Add ${roomType} on floor ${floorNumber}`}
         />
       </form>
-      <div  className="w-100" style={{ overflowX: "scroll",marginTop:"20px" }}>
-        <ResponsiveTable columns={columns}  data={data1}/>
+      <div className="w-100" style={{ overflowX: "scroll", marginTop: "20px" }}>
+        <ResponsiveTable columns={columns} data={floordata} />
       </div>
     </div>
   );
