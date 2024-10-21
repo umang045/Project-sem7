@@ -120,6 +120,7 @@ const AddVibhag = () => {
               onBlr={formik.handleBlur("વિભાગ‌નુ‌નામ")}
               val={formik.values.વિભાગ‌નુ‌નામ}
             />
+            
             <CustomInput
               type="text"
               placeholder="યૂનીટ નંબર"

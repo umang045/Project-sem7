@@ -27,6 +27,8 @@ const createVargikaranWithFloors = asyncHandler(async (req, res, next) => {
     res.status(500).json({ message: "Error creating floors" });
   }
 });
+
+
 //get all vargikrn
 const getAllVrgikrn = Factory.getAll(Vargikrn);
 
@@ -61,6 +63,8 @@ const addProperty = asyncHandler(async (req, res, next) => {
     .status(201)
     .json({ message: "Property added successfully", data: vargikrn });
 });
+
+
 //push floor in database
 const addFloors = asyncHandler(async (req, res, next) => {
   const { vId, floornum } = req.body;
@@ -90,7 +94,6 @@ const getInfoByVibhag = asyncHandler(async (req, res, next) => {
 });
 
 // floorsController.js
-
 const getFloors = asyncHandler(async (req, res, next) => {
   const vibhagId = req.params.vibhagId;
   try {
@@ -102,6 +105,31 @@ const getFloors = asyncHandler(async (req, res, next) => {
   }
 });
 
+//del floors info
+const deleteFloorsInfo = asyncHandler(async (req, res, next) => {
+  const { vibhgId, floorNum, idx, name } = req.body;
+
+  try {
+    const vargikrn = await Vargikrn.find({ "vibhagId": vibhgId })
+
+    const floorIndex =  vargikrn[0].માહીતી[floorNum].floor[0].info
+
+    floorIndex.forEach(element => {
+      if (element.name == name && element.index == idx) {
+        floorIndex.pull(element);
+        return;
+      }
+    });
+
+    await vargikrn[0].save();
+    res.status(200).json(floorIndex);
+
+  } catch (error) {
+    console.error('Error deleting info record:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+})
+
 module.exports = {
   createVargikaranWithFloors,
   getAllVrgikrn,
@@ -110,4 +138,5 @@ module.exports = {
   addFloors,
   getInfoByVibhag,
   getFloors,
+  deleteFloorsInfo
 };

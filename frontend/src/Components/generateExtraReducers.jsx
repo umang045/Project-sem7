@@ -33,6 +33,9 @@ export default function generateExtraReducers(thunk, name) {
           case "floors":
             toast.success("floors added Succesfully");
             break;
+          case "delFloorsInfo":
+            toast.success("info deleted Succesfully");
+            break;
           default:
             break;
         }

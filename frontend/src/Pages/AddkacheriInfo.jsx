@@ -43,10 +43,17 @@ const AddkacheriInfo = () => {
   }, [kacheriItem, id]);
   return (
     <>
-      <div>
-        <h3 className="mb-4 ">ક્ચેરી‌ ની માહીતી</h3>
-        <div>
-          <form action="" onSubmit={formik.handleSubmit}>
+      {/* <div className="w-full h-full p-4 bg-red-600"> */}
+      <h3 className="text-center">ક્ચેરી‌ ઉમેરો</h3>
+      {/* <div className="w-200" style={{
+        width: "300px",
+        padding: "20px",
+        backgroundColor: "white",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        borderRadius: "8px",
+        margin: "100px auto"
+      }}>
+        <form action="" onSubmit={formik.handleSubmit}>
             <CustomInput
               type="text"
               placeholder="ક્ચેરી‌ નુ ‌નામ"
@@ -60,13 +67,68 @@ const AddkacheriInfo = () => {
             </div>
             <button
               type="submit"
-              className="btn btn-success border-0 rounded-3 my-5"
+              className="btn btn-success border-3 rounded-3 my-5"
             >
               {id === undefined ? "ADD" : "Update"}
             </button>
           </form>
-        </div>
+      </div> */}
+
+      {/* </div> */}
+
+
+      <div className="w-200" style={{
+        width: "450px",
+        height: "300px",
+        padding: "40px",
+        backgroundColor: "white",
+        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+        border: "2px solid #ccc",
+        borderRadius: "12px",
+        margin: "100px auto",
+        textAlign: "center"
+      }}>
+        <form action="" onSubmit={formik.handleSubmit}>
+          <CustomInput
+            type="text"
+            placeholder="ક્ચેરી‌ નુ ‌નામ"
+            name="ક્ચેરી‌નુ‌નામ"
+            onChng={formik.handleChange("ક્ચેરી‌નુ‌નામ")}
+            onBlr={formik.handleBlur("ક્ચેરી‌નુ‌નામ")}
+            val={formik.values.ક્ચેરી‌નુ‌નામ}
+            style={{
+
+            }}
+            onFocus={(e) => e.target.style.boxShadow = '0 4px 8px rgba(0, 123, 255, 0.3)'}
+            // onBlr={(e) => e.target.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)'}
+          />
+          <div className="error" style={{ color: "red", fontSize: "12px" }}>
+            {formik.touched.ક્ચેરી‌નુ‌નામ && formik.errors.ક્ચેરી‌નુ‌નામ}
+          </div>
+          <button
+            type="submit"
+            style={{
+              width: "100%",
+              background: "linear-gradient(to right, #28a745 50%, #226acd 50%)",
+              color: "white",
+              padding: "12px",
+              border: "none",
+              borderRadius: "8px",
+              fontSize: "16px",
+              cursor: "pointer",
+              marginTop: "50px",
+              backgroundSize: "200% 100%",
+              backgroundPosition: "left bottom",
+              transition: "background-position 0.4s ease"
+            }}
+            onMouseEnter={(e) => e.target.style.backgroundPosition = 'right bottom'}
+            onMouseLeave={(e) => e.target.style.backgroundPosition = 'left bottom'}
+          >
+            {id === undefined ? "ADD" : "Update"}
+          </button>
+        </form>
       </div>
+
     </>
   );
 };

@@ -27,11 +27,20 @@ const getFloors = async (id) => {
   if (response) return response.data;
 };
 
+//del floors
+const delFloorsInfo = async (data) => {
+  // console.log(data);
+  const response = await axios.post(`${base_url}vrgikrn/delfloorinfo/`, data);
+  console.log(response.data);
+  if (response) return response.data;
+};
+
 const vargikrnService = {
   addFloors,
   addInfo,
   getInfoByVibhag,
   getFloors,
+  delFloorsInfo
 };
 
 export default vargikrnService;

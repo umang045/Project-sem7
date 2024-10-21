@@ -8,12 +8,12 @@ import CustomModal from "../Components/CustomModel";
 import { Collapse } from "antd";
 import { ResponsiveTable } from "responsive-table-react";
 import { useVibhag } from "../Hooks/useVibahg";
-import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 
 import {
   addFloors,
   addInfo,
+  delFloorsInfo,
   getFloors,
 } from "../feature/vargikrn/VargikrnSlice";
 
@@ -22,8 +22,12 @@ import { useIffo } from "../Hooks/useInfo";
 
 const columns = [
   {
-    id: "index",
+    id: "cnt",
     text: "ક્રમ",
+  },
+  {
+    id: "i",
+    text: "vigat ક્રમ",
   },
   {
     id: "floor",
@@ -60,6 +64,7 @@ const AddClgInfo = () => {
   const [floor, setFloor] = useState(0);
   const [vibhagId, setVibhagId] = useState("");
   const [showFloor, setShowFloor] = useState(false);
+  const [floordata, setFloordata] = useState([]);
 
   const fetchInfoByVibhag = useIffo();
   const dispatch = useDispatch();
@@ -78,38 +83,66 @@ const AddClgInfo = () => {
   const { getVibhagbyKacheriState } = usegetVibhagByKacheri();
 
   const getFloorsbyid = useSelector((state) => state?.vargikrn?.getfloors);
-  //  console.log(getFloorsbyid[0]?.માહીતી);
+  // console.log(getFloorsbyid[0]?.માહીતી);
   useEffect(() => {
     if (getFloorsbyid && getFloorsbyid[0]?.માહીતી?.length != undefined) {
       setFloor(getFloorsbyid[0]?.માહીતી?.length);
       setShowFloor(true);
     } else setShowFloor(false);
-
+    updateFloorData();
   }, [getFloorsbyid]);
 
-  let floordata = [];
-  if (getFloorsbyid && getFloorsbyid[0] && getFloorsbyid[0].માહીતી && getFloorsbyid[0].માહીતી.length > 0) {
-    for (let index = 0; index < getFloorsbyid[0]?.માહીતી?.length; index++) {
-      getFloorsbyid[0]?.માહીતી[index]?.floor[0]?.info.map((item, idx) => {
-        floordata.push({
-          index: idx + 1,
-          floor: index + 1,
-          name: item.name,
-          area: item.area,
-          cost: item.cost,
-          year: item.year,
 
-          delete: (
-            <MdDelete
-              style={{ cursor: "pointer", height: "20px" }}
-            />
-          ),
-        })
-      })
+  useEffect(() => {
+    updateFloorData();
+  }, [getFloorsbyid]);
+
+  const updateFloorData = () => {
+    if (getFloorsbyid && getFloorsbyid[0] && getFloorsbyid[0].માહીતી && getFloorsbyid[0].માહીતી.length > 0) {
+      let newFloordata = [];
+      let count = 0;
+      for (let index = 0; index < getFloorsbyid[0]?.માહીતી?.length; index++) {
+        // setFloordata(newFloordata);
+        getFloorsbyid[0]?.માહીતી[index]?.floor[0]?.info.forEach((item, idx) => {
+          newFloordata.push({
+            cnt: ++count,
+            i: item?.index,
+            floor: index + 1,
+            name: item.name,
+            area: item.area,
+            cost: item.cost,
+            year: item.year,
+            delete: (
+              <MdDelete
+                style={{ cursor: "pointer", height: "20px" }}
+                onClick={() => {
+                  const selectedVibhagId = document.querySelector(
+                    'select[name="vibhagId"]'
+                  ).value;
+                  dispatch(delFloorsInfo({
+                    "vibhgId": selectedVibhagId,
+                    "floorNum": index,
+                    "idx": `${item?.index}`,
+                    "name": `${item?.name}`
+                  })).then(()=>{
+                    const updatedFloordata = newFloordata.filter(
+                    (data) => data.i !== item.index
+                  );
+                  setFloordata(updatedFloordata);
+                  })
+                }}
+              />
+            ),
+          });
+        });
+        setFloordata(newFloordata);
+      }
     }
-  }
+  };
+  // updateFloorData();
 
-
+  console.log(floordata);
+  
   const floorItems = Array.from({ length: floor }, (_, index) => ({
     key: `floor-${index + 1}`,
     label: `Floor ${index + 1}`,
@@ -533,6 +566,9 @@ const AddClgInfo = () => {
                 vibhagId: selectedVibhagId,
               })
             );
+            setTimeout(() => {
+              dispatch(getFloors(selectedVibhagId));
+            }, 200)
           }}
         >
           Add floor
@@ -547,6 +583,7 @@ const AddClgInfo = () => {
             const selectedVibhagId = document.querySelector(
               'select[name="vibhagId"]'
             ).value;
+            const index = document.querySelector('input[name="index"]').value;
             const area = document.querySelector('input[name="area"]').value;
             const cost = document.querySelector('input[name="cost"]').value;
             const year = document.querySelector('select[name="year"]').value;
@@ -554,13 +591,16 @@ const AddClgInfo = () => {
               addInfo({
                 vibhagId: selectedVibhagId,
                 floor: Number.parseInt(floorNumber),
-                index: 1,
+                index: Number.parseInt(index),
                 name: `${roomType}`,
                 area: Number.parseInt(area),
                 cost: Number.parseInt(cost),
                 year: Number.parseInt(year),
               })
             );
+            setTimeout(() => {
+              dispatch(getFloors(selectedVibhagId));
+            }, 200)
             hideModal();
           }}
           title={`Add ${roomType} on floor ${floorNumber}`}

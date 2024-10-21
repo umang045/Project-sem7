@@ -24,6 +24,12 @@ function CustomModal(props) {
       <p>{title}</p>
       <div>
         <CustomInput
+          type="number"
+          placeholder="office number"
+          name="index"
+          className="w-100"
+        />
+        <CustomInput
           type="text"
           placeholder="એરીયા / ચો.ફૂટ"
           name="area"
