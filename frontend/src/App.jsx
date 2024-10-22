@@ -15,6 +15,7 @@ import AddkacheriInfo from "./Pages/AddkacheriInfo";
 import AddVibhag from "./Pages/AddVibhag";
 import KacheriList from "./Pages/KacheriList";
 import VibhagList from "./Pages/VibhagList";
+import Login from "./Pages/Login";
 
 
 function App() {
@@ -24,8 +25,9 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Login></Login>}></Route>
           <Route path="/" element={<MainLayout />}>
-            <Route path="/" element={<Home></Home>}></Route>
+            <Route path="form" element={<AddClgInfo></AddClgInfo>}></Route>
             <Route path="form" element={<AddClgInfo></AddClgInfo>}></Route>
             <Route path="kacheri" element={<AddkacheriInfo></AddkacheriInfo>}></Route>
             <Route path="kacheri/:id" element={<AddkacheriInfo></AddkacheriInfo>}></Route>
@@ -35,6 +37,7 @@ function App() {
             <Route path="vibhag/:id" element={<AddVibhag></AddVibhag>}></Route>
             <Route path="vibhaglist" element={<VibhagList></VibhagList>}></Route>
           </Route>
+
         </Routes>
       </BrowserRouter>
     </>

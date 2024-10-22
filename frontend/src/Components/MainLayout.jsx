@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
+import { UserButton } from '../Pages/Login';
 
 import { FaSchool } from "react-icons/fa";
 import {
@@ -8,6 +9,10 @@ import {
   UploadOutlined,
   UserOutlined,
 } from "@ant-design/icons";
+import { PiBuildingOffice } from "react-icons/pi";
+import { HiOutlineOfficeBuilding } from "react-icons/hi";
+import { FcDepartment } from "react-icons/fc";
+import { LiaClipboardListSolid } from "react-icons/lia";
 import { Button, Layout, Menu, theme } from "antd";
 const { Header, Sider, Content } = Layout;
 
@@ -34,7 +39,7 @@ const MainLayout = () => {
             <h6 className="text-white  text-center py-3 mb-0">
               <span className="sm-logo">Admin</span>
               <br />
-              {/* <span className="lg-logo">E-Comm</span> */}
+
             </h6>
           </div>
           <Menu
@@ -50,29 +55,36 @@ const MainLayout = () => {
             }}
             items={[
               {
-                key: "",
-                icon: <UserOutlined />,
-                label: "Dashbord",
-              },
-              {
                 key: "/kacheri",
-                icon: <UploadOutlined />,
+                icon: <PiBuildingOffice />,
                 label: "ક્ચેરી‌",
               },
               {
                 key: "/kacherilist",
-                icon: <UploadOutlined />,
+                icon: <HiOutlineOfficeBuilding />,
                 label: "ક્ચેરી‌ ની વિગત",
               },
               {
                 key: "vibhag",
-                icon: <UploadOutlined />,
+                icon: <FcDepartment />,
                 label: "વિભાગ‌",
               },
               {
                 key: "vibhaglist",
-                icon: <UploadOutlined />,
-                label: "વિભાગ‌ ની વિગત",
+                icon: <LiaClipboardListSolid />,
+                label: <div
+                  style={{
+                    fontSize: "15px",
+                    cursor: "pointer",
+                    transition: "all 0.3s ease",
+                    ":hover": {
+                      color: "#007bff", 
+                      transform: "scale(1.1)", 
+                    },
+                  }}
+                >
+                  વિભાગ‌ ની વિગત
+                </div>,
               },
               {
                 key: "form",
@@ -95,7 +107,31 @@ const MainLayout = () => {
               }}
             />
             <h3>Property Register</h3>
-            <h3></h3>
+
+            <div style={{
+              background: 'linear-gradient(135deg, cornflowerblue, #add8e6)',
+              margin: '10px',
+              padding: '15px',
+              borderRadius: '50%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              boxShadow: '0 8px 20px rgba(0, 0, 0, 0.3)',
+              width: '40px',
+              height: '40px',
+              transition: 'transform 0.3s, box-shadow 0.3s',
+              cursor: 'pointer'
+            }}
+              onMouseEnter={e => {
+                e.currentTarget.style.transform = 'scale(1.1)';
+                e.currentTarget.style.boxShadow = '0 12px 24px rgba(0, 0, 0, 0.4)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.3)';
+              }}>
+              <UserButton />
+            </div>
           </Header>
 
           <Content
