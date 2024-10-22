@@ -108,30 +108,14 @@ const MainLayout = () => {
             />
             <h3>Property Register</h3>
 
-            <div style={{
-              background: 'linear-gradient(135deg, cornflowerblue, #add8e6)',
-              margin: '10px',
-              padding: '15px',
-              borderRadius: '50%',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              boxShadow: '0 8px 20px rgba(0, 0, 0, 0.3)',
-              width: '40px',
-              height: '40px',
-              transition: 'transform 0.3s, box-shadow 0.3s',
-              cursor: 'pointer'
-            }}
-              onMouseEnter={e => {
-                e.currentTarget.style.transform = 'scale(1.1)';
-                e.currentTarget.style.boxShadow = '0 12px 24px rgba(0, 0, 0, 0.4)';
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.3)';
-              }}>
-              <UserButton />
-            </div>
+            
+            <UserButton showName appearance={{elements:{
+                userButtonAvatarBox:{
+                  width: '40px',
+                  height: '40px',
+                  marginRight:'70px',
+                }
+              }}} />
           </Header>
 
           <Content

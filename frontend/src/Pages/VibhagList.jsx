@@ -56,10 +56,6 @@ const columns = [
     text: "ફાયરનીવ્યવસ્થા",
   },
   {
-    id: "makanuse",
-    text: "મકાનનોઉપયોગ",
-  },
-  {
     id: "edit",
     text: "Edit",
   },
