@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'; 
+import React, { useEffect } from 'react';
 import {
     SignedIn,
     SignedOut,
@@ -9,7 +9,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const { isLoaded, isSignedIn } = useAuth(); 
+    const { isLoaded, isSignedIn } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -30,7 +30,9 @@ const Login = () => {
     return (
         <>
             <SignedOut>
-                <SignInButton data-sign-in /> 
+                <div style={{display:'none'}}>
+                    <SignInButton data-sign-in />
+                </div>
             </SignedOut>
             <SignedIn>
                 <ClerkUserButton />

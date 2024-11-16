@@ -10,7 +10,15 @@ const createVibhag = Factory.createOne(Vibhag);
 const deleteVibhag = Factory.deletOne(Vibhag);
 
 //get all properties
-const getAllVibhag = Factory.getAll(Vibhag);
+// const getAllVibhag = Factory.getAll(Vibhag);
+const getAllVibhag = asyncHandler(async (req, res, next) => {
+  try {
+    const getAllVibhg = await Vibhag.find().populate("kacheriId")
+    res.json(getAllVibhg)
+  } catch (error) {
+    throw new Error(error)
+  }
+})
 
 //update properties
 const updateVibhag = Factory.updateOne(Vibhag);
@@ -35,7 +43,7 @@ const addVibhag = asyncHandler(async (req, res, next) => {
 
 const vibhagByKacheri = asyncHandler(async (req, res) => {
   try {
-    const {kacheriId} = req.query;
+    const { kacheriId } = req.query;
     // console.log(kacheriId);
 
     const vibhag = await Kacheri.findById(kacheriId).populate("વિભાગ");

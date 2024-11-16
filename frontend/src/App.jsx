@@ -16,6 +16,7 @@ import AddVibhag from "./Pages/AddVibhag";
 import KacheriList from "./Pages/KacheriList";
 import VibhagList from "./Pages/VibhagList";
 import Login from "./Pages/Login";
+import Report from "./Pages/Report";
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
             <Route path="vibhag" element={<AddVibhag></AddVibhag>}></Route>
             <Route path="vibhag/:id" element={<AddVibhag></AddVibhag>}></Route>
             <Route path="vibhaglist" element={<VibhagList></VibhagList>}></Route>
+            <Route path="report" element={<Report></Report>}></Route>
           </Route>
 
         </Routes>

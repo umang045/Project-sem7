@@ -91,6 +91,11 @@ const MainLayout = () => {
                 icon: <FaSchool />,
                 label: "વર્ગીકરણ",
               },
+              {
+                key: "report",
+                icon: <FaSchool />,
+                label: "report",
+              },
             ]}
           />
         </Sider>
@@ -114,6 +119,7 @@ const MainLayout = () => {
                   width: '40px',
                   height: '40px',
                   marginRight:'70px',
+                  // display:'none'
                 }
               }}} />
           </Header>
