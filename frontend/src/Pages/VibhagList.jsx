@@ -1,7 +1,8 @@
 import React from "react";
 import { ResponsiveTable } from "responsive-table-react";
 import { useVibhag } from "../Hooks/useVibahg";
-
+// import { PDFDownloadLink } from "@react-pdf/renderer";
+// import Report from "./Report";
 const columns = [
   {
     id: "index",
@@ -69,9 +70,12 @@ const VibhagList = () => {
   const { data1 } = useVibhag();
   return (
     <>
-      <div className="w-100" style={{overflowX:"scroll"}}>
+      <div className="w-100" style={{ overflowX: "scroll" }}>
         <ResponsiveTable columns={columns} data={data1} />
       </div>
+      {/* <PDFDownloadLink document={<Report />} filename="FORM">
+        {({ loading }) => (loading ? <button>Loading Document...</button> : <button>Download</button>)}
+      </PDFDownloadLink> */}
     </>
   );
 };

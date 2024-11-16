@@ -91,7 +91,7 @@ const AddVibhag = () => {
   return (
     <>
       <div>
-        <h3 className="mb-4 ">ક્ચેરી‌ ની માહીતી</h3>
+        <h3 className="mb-4 ">વિભાગ‌ ની માહીતી</h3>
         <div style={{ height: "60vh", overflowY: "scroll" }}>
           <form action="" onSubmit={formik.handleSubmit}>
             <select

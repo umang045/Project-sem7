@@ -17,6 +17,8 @@ import KacheriList from "./Pages/KacheriList";
 import VibhagList from "./Pages/VibhagList";
 import Login from "./Pages/Login";
 import Report from "./Pages/Report";
+import { PDFViewer } from '@react-pdf/renderer';
+
 
 
 function App() {
@@ -39,9 +41,9 @@ function App() {
             <Route path="vibhaglist" element={<VibhagList></VibhagList>}></Route>
             <Route path="report" element={<Report></Report>}></Route>
           </Route>
-
         </Routes>
       </BrowserRouter>
+     
     </>
   );
 }

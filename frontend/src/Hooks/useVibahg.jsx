@@ -29,10 +29,13 @@ const useVibhag = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const vibhagState = fetchVibhag();
+  console.log(vibhagState);
+
   const data1 = [];
   for (let index = 0; index < vibhagState?.length; index++) {
     data1.push({
       index: index + 1,
+      kacheriname: vibhagState[index].kacheriId?.ક્ચેરી‌નુ‌નામ,
       name: `${vibhagState[index]?.વિભાગ‌નુ‌નામ}`,
       unit: `${vibhagState[index]?.યૂનીટનંબર}`,
       makan: `${vibhagState[index]?.મકાનનુ‌નામ}`,
@@ -95,7 +98,7 @@ const usegetVibhagByKacheri = () => {
     shallowEqual
   );
   // console.log(getVibhagbyKacheriState);
-  return {getVibhagbyKacheriState};
+  return { getVibhagbyKacheriState };
 };
 
 export { useVibhag, usegetVibhagByKacheri };
