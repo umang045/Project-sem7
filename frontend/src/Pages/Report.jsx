@@ -23,8 +23,6 @@ const Report = () => {
     const dispatch = useDispatch()
     const { getVibhagbyKacheriState } = usegetVibhagByKacheri();
     const { kacheriState } = useKacheri();
-    // console.log(kacheriState);
-    // console.log(getVibhagbyKacheriState);
 
 
 
