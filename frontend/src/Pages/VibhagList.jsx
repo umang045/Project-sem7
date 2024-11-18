@@ -68,9 +68,11 @@ const columns = [
 
 const VibhagList = () => {
   const { data1 } = useVibhag();
+  console.log(data1);
+
   return (
     <>
-      <div className="w-100" style={{ overflowX: "scroll" }}>
+      <div className="report-container" id="report" style={{ overflowX: "scroll", margin: "20px 0", padding: "20px", border: "1px solid #ccc", borderRadius: "8px", backgroundColor: "#f9f9f9" }}>
         <ResponsiveTable columns={columns} data={data1} />
       </div>
       {/* <PDFDownloadLink document={<Report />} filename="FORM">

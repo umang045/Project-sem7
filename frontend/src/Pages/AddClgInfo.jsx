@@ -141,7 +141,7 @@ const AddClgInfo = () => {
   };
   // updateFloorData();
 
-  console.log(floordata);
+  // console.log(floordata);
   
   const floorItems = Array.from({ length: floor }, (_, index) => ({
     key: `floor-${index + 1}`,
@@ -560,10 +560,14 @@ const AddClgInfo = () => {
             const selectedVibhagId = document.querySelector(
               'select[name="vibhagId"]'
             ).value;
+            const selectedkacheriId = document.querySelector(
+              'select[name="kacheriId"]'
+            ).value;
             dispatch(
               addFloors({
                 numFloors: Number.parseInt(floor),
                 vibhagId: selectedVibhagId,
+                kacheriId: selectedkacheriId,
               })
             );
             setTimeout(() => {

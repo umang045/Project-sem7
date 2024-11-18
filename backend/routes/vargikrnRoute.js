@@ -10,6 +10,7 @@ const {
   getInfoByVibhag,
   deleteFloorsInfo,
   getFloors,
+  getVargi,
 } = require("../controller/vargikrnCntrl");
 
 // router.post("/", createVargikrn);
@@ -18,6 +19,7 @@ router.post("/", createVargikaranWithFloors);
 router.post("/addinfo", addProperty);
 router.get("/", getAllVrgikrn);
 router.get("/getinfo", getInfoByVibhag);
+router.get("/getdata/:vId", getVargi);
 router.get("/floors/:vibhagId", getFloors);
 router.delete("/:id", deleteVargikrn);
 router.put("/", addFloors);

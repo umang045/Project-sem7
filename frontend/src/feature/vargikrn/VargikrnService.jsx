@@ -23,7 +23,7 @@ const getInfoByVibhag = async () => {
 const getFloors = async (id) => {
   // console.log(id);
   const response = await axios.get(`${base_url}vrgikrn/floors/${id}`);
-  console.log(response.data);
+  // console.log(response.data);
   if (response) return response.data;
 };
 
@@ -35,12 +35,22 @@ const delFloorsInfo = async (data) => {
   if (response) return response.data;
 };
 
+const getVargi = async (data) => {
+  // console.log(data);
+  const response = await axios.get(`${base_url}vrgikrn/getdata/${data}`);
+  // console.log(response.data);
+  if (response) return response.data;
+};
+
+
+
 const vargikrnService = {
   addFloors,
   addInfo,
   getInfoByVibhag,
   getFloors,
-  delFloorsInfo
+  delFloorsInfo,
+  getVargi
 };
 
 export default vargikrnService;

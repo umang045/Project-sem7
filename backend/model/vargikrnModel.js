@@ -6,6 +6,10 @@ var vargikaranSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Vibhag",
     },
+    kacheriId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Kacheri",
+    },
     માહીતી: [
       {
         floor: [

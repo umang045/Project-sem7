@@ -1,138 +1,123 @@
 import React from "react";
-import { Page, Text, Image, Document, StyleSheet } from "@react-pdf/renderer";
-import LebronStretch from "../photos/lebron_transparent.png";
-import { Font } from '@react-pdf/renderer';
 import { ResponsiveTable } from "responsive-table-react";
-import { useVibhag } from "../Hooks/useVibahg";
-
+import { usegetVibhagByKacheri, useVibhag } from "../Hooks/useVibahg";
+import { useVargikrn } from "../Hooks/useVargikrn";
+import { getVargi } from "../feature/vargikrn/VargikrnSlice";
+import { getVibhagByKacheri } from "../feature/vibhag/vibhagSlice";
+import { useKacheri } from "../Hooks/useKacheri";
+import { useDispatch } from "react-redux";
 
 const columns = [
-    {
-        id: "index",
-        text: "ક્રમ",
-    },
-    {
-        id: "kacheriname",
-        text: "kacheriName",
-    },
-    {
-        id: "name",
-        text: "વિભાગ‌નુ‌નામ",
-    },
-    {
-        id: "unit",
-        text: "યૂનીટનંબર",
-    },
-    {
-        id: "makan",
-        text: "મકાનનુ‌નામ",
-    },
-    {
-        id: "oldmilkat",
-        text: "જુનોમિલ્કતનંબર",
-    },
-    {
-        id: "newmilkat",
-        text: "નવોમિલ્કતનંબર",
-    },
-    {
-        id: "bill1",
-        text: "બિલનંબર_1",
-    },
-    {
-        id: "bill2",
-        text: "બિલનંબર_2",
-    },
-    {
-        id: "totalbill",
-        text: "બિલનીકુલરકમ",
-    },
-    {
-        id: "makanuse",
-        text: "મકાનનોઉપયોગ",
-    },
-    {
-        id: "gass",
-        text: "ગેસલાઈનગ્રાહકનંબર",
-    },
-    {
-        id: "elecnum",
-        text: "ઈલેકટ્રીકગ્રાહકનંબર",
-    },
-    {
-        id: "fire",
-        text: "ફાયરનીવ્યવસ્થા",
-    },
+    { id: "ix", text: "ક્રમ" },
+    { id: "idxx", text: "number" },
+    { id: "name", text: "નામ" },
+    { id: "area", text: "area" },
+    { id: "cost", text: "cost" },
 
 ];
 
-const styles = StyleSheet.create({
-    body: {
-        paddingTop: 35,
-        paddingBottom: 65,
-        paddingHorizontal: 35,
-    },
-    title: {
-        fontSize: 24,
-        textAlign: "center",
-        fontFamily: "AntonFamily",
-    },
-    text: {
-        margin: 12,
-        fontSize: 14,
-        textAlign: "justify",
-        fontFamily: "AntonFamily",
-
-    },
-    image: {
-        marginVertical: 15,
-        marginHorizontal: 100,
-    },
-    header: {
-        fontSize: 12,
-        marginBottom: 20,
-        textAlign: "center",
-        color: "grey",
-        fontFamily: "AntonFamily",
-    },
-    pageNumber: {
-        position: "absolute",
-        fontSize: 12,
-        bottom: 30,
-        left: 0,
-        right: 0,
-        textAlign: "center",
-        color: "grey",
-        fontFamily: "AntonFamily",
-    },
-});
-
 const Report = () => {
     const { data1 } = useVibhag();
+    const {Vrgidata} = useVargikrn()
+    console.log(Vrgidata);
+    const dispatch = useDispatch()
+    const { getVibhagbyKacheriState } = usegetVibhagByKacheri();
+    const { kacheriState } = useKacheri();
+    // console.log(kacheriState);
+    // console.log(getVibhagbyKacheriState);
+
+
+
+    const handlePrint = () => {
+        const printContent = document.getElementById('report').innerHTML;
+        const newWindow = window.open('', '', 'width=800,height=600');
+        newWindow.document.write(`
+            <html>
+                <head>
+                    <title>Print Report</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; }
+                        table { width: 100%; border-collapse: collapse; }
+                        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+                        th { background-color: #f2f2f2; }
+                    </style>
+                </head>
+                <body onload="window.print(); window.close();">
+                    ${printContent}
+                </body>
+            </html>
+        `);
+        newWindow.document.close();
+    };
+
     return (
         <>
-            <Document>
-                <Page style={{ ...styles.body }}>
-                    <Text style={styles.header} fixed>jhdb</Text>
-                    <Text style={styles.text}>
-                        <div className="w-100" style={{ overflowX: "scroll" }}>
-                            <ResponsiveTable columns={columns} data={data1} />
-                        </div>
-                    </Text>
-                    <Text
-                        style={styles.pageNumber}
-                        render={({ pageNumber, totalPages }) =>
-                            `${pageNumber} / ${totalPages}`
-                        }
-                    />
-                </Page>
-            </Document>
-            {/* <PDFDownloadLink document={<Report />} filename="FORM">
-        {({ loading }) => (loading ? <button>Loading Document...</button> : <button>Download</button>)}
-      </PDFDownloadLink> */}
+            <select
+                name="kacheriId"
+                id=""
+                className="w-100 border  py-3 mb-3 "
+                style={{ outlineStyle: "none", borderRadius: "5px" }}
+                onChange={(e) => {
+                    const id = e.target.value;
+                    dispatch(getVibhagByKacheri({ kacheriId: id }));
+                }}
+            >
+                <option value="">ક્ચેરી‌નુ‌નામ</option>
+                {kacheriState?.map((item, index) => {
+                    return (
+                        <option
+                            key={index}
+                            value={item?._id}
+                        >
+                            {item?.ક્ચેરી‌નુ‌નામ}
+                        </option>
+                    );
+                })}
+            </select>
 
+            <select
+                name="vibhagId"
+                id=""
+                className="w-100 border  py-3 mb-3 "
+                style={{ outlineStyle: "none", borderRadius: "5px" }}
+                // onChange={(e)=>{dispatch(getFloors())}}
+                onChange={(e) => {
+                    dispatch(getVargi(e.target.value));
+                }}
+            >
+                <option value="">વિભાગ‌નુ‌નામ</option>
+                {getVibhagbyKacheriState?.map((item, index) => {
+                    return (
+                        <option key={index} value={item?._id} onChange={(e) => {
+                            dispatch(getVargi(e.target.value))
+                        }}>
+                            {item?.વિભાગ‌નુ‌નામ}
+                        </option>
+                    );
+                })}
+            </select>
+            <div className="report-container" id="report" style={{ overflowX: "scroll", margin: "20px 0", padding: "20px", border: "1px solid #ccc", borderRadius: "8px", backgroundColor: "#f9f9f9" }}>
+                <ResponsiveTable columns={columns} data={Vrgidata} />
+            </div>
+            <button
+                type="button"
+                onClick={handlePrint}
+                style={{
+                    padding: "10px 20px",
+                    fontSize: "16px",
+                    color: "#fff",
+                    backgroundColor: "#007bff",
+                    border: "none",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    transition: "background-color 0.3s"
+                }}
+                onMouseOver={(e) => e.currentTarget.style.backgroundColor = "#0056b3"}
+                onMouseOut={(e) => e.currentTarget.style.backgroundColor = "#007bff"}
+            >
+                Print
+            </button>
         </>
-
     );
 };
 

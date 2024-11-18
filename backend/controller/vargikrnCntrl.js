@@ -3,10 +3,11 @@ const Vargikrn = require("../model/vargikrnModel");
 const Factory = require("./handleFactory");
 
 const createVargikaranWithFloors = asyncHandler(async (req, res, next) => {
-  const { numFloors, vibhagId } = req.body;
+  const { numFloors, vibhagId, kacheriId } = req.body;
 
   const vargikrn = new Vargikrn({
-    vibhagId, // Add vid property here
+    vibhagId,
+    kacheriId, // Add vid property here
     માહીતી: Array(numFloors)
       .fill(0)
       .map((_, index) => ({
@@ -28,9 +29,34 @@ const createVargikaranWithFloors = asyncHandler(async (req, res, next) => {
   }
 });
 
-
 //get all vargikrn
-const getAllVrgikrn = Factory.getAll(Vargikrn);
+const getAllVrgikrn = asyncHandler(async (req, res, next) => {
+  try {
+    const getAllVibhg = await Vargikrn.find().populate('vibhagId').populate('kacheriId')
+    res.json(getAllVibhg)
+  } catch (error) {
+    throw new Error(error)
+  }
+})
+
+const getVargi = asyncHandler(async (req, res, next) => {
+  const  vId  = req.params.vId;
+  try {
+    const getData = await Vargikrn.find({ "vibhagId": vId })
+    console.log(getData.length);
+
+    if (getData.length > 0) {
+      const getAllVibhg = await Vargikrn.find().populate('vibhagId').populate('kacheriId')
+      res.json(getAllVibhg)
+    }
+    else {
+      res.json({ message: "no data found!!" })
+    }
+
+  } catch (error) {
+
+  }
+})
 
 //push info of property
 const addProperty = asyncHandler(async (req, res, next) => {
@@ -112,7 +138,7 @@ const deleteFloorsInfo = asyncHandler(async (req, res, next) => {
   try {
     const vargikrn = await Vargikrn.find({ "vibhagId": vibhgId })
 
-    const floorIndex =  vargikrn[0].માહીતી[floorNum].floor[0].info
+    const floorIndex = vargikrn[0].માહીતી[floorNum].floor[0].info
 
     floorIndex.forEach(element => {
       if (element.name == name && element.index == idx) {
@@ -138,5 +164,6 @@ module.exports = {
   addFloors,
   getInfoByVibhag,
   getFloors,
-  deleteFloorsInfo
+  deleteFloorsInfo,
+  getVargi
 };

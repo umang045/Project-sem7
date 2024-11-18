@@ -29,7 +29,7 @@ const useVibhag = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const vibhagState = fetchVibhag();
-  console.log(vibhagState);
+  // console.log(vibhagState);
 
   const data1 = [];
   for (let index = 0; index < vibhagState?.length; index++) {
@@ -48,6 +48,7 @@ const useVibhag = () => {
       gass: `${vibhagState[index]?.ગેસલાઈનગ્રાહકનંબર}`,
       elecnum: `${vibhagState[index]?.ઈલેકટ્રીકગ્રાહકનંબર}`,
       makanuse: `${vibhagState[index]?.મકાનનોઉપયોગ}`,
+      // data :{} ``,
       fire: `${vibhagState[index]?.ફાયરનીવ્યવસ્થા}`,
       edit: (
         <FaEdit
