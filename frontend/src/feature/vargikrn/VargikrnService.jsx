@@ -42,6 +42,11 @@ const getVargi = async (data) => {
   if (response) return response.data;
 };
 
+const getAllVrgi = async()=>{
+  const response = await axios.get(`${base_url}vrgikrn/`);
+  if (response) return response.data;
+}
+
 
 
 const vargikrnService = {
@@ -50,7 +55,8 @@ const vargikrnService = {
   getInfoByVibhag,
   getFloors,
   delFloorsInfo,
-  getVargi
+  getVargi,
+  getAllVrgi
 };
 
 export default vargikrnService;

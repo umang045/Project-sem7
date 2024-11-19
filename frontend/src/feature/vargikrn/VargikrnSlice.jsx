@@ -81,6 +81,17 @@ export const getVargi = createAsyncThunk(
     }
   }
 );
+export const getAllVrgi = createAsyncThunk(
+  "vrgikrn/get-Alldata",
+  async ( ThunkAPI) => {
+    try {
+      // console.log(data);
+      return await vargikrnService.getAllVrgi();
+    } catch (error) {
+      return ThunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 
 const initialState = {
@@ -102,6 +113,7 @@ export const vargikrnSlice = createSlice({
     generateExtraReducers(getFloors, "getfloors")(builder);
     generateExtraReducers(delFloorsInfo, "delFloorsInfo")(builder);
     generateExtraReducers(getVargi, "getVargi")(builder);
+    generateExtraReducers(getAllVrgi, "getAllVrgi")(builder);
   },
 });
 

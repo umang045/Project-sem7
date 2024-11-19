@@ -40,13 +40,14 @@ const getAllVrgikrn = asyncHandler(async (req, res, next) => {
 })
 
 const getVargi = asyncHandler(async (req, res, next) => {
-  const  vId  = req.params.vId;
+  const vId = req.params.vId;
   try {
     const getData = await Vargikrn.find({ "vibhagId": vId })
-    console.log(getData.length);
+    // console.log(getData.length);
 
     if (getData.length > 0) {
-      const getAllVibhg = await Vargikrn.find().populate('vibhagId').populate('kacheriId')
+      const getAllVibhg = await Vargikrn.find({ vibhagId: vId }).populate('vibhagId').populate('kacheriId')
+
       res.json(getAllVibhg)
     }
     else {
