@@ -71,25 +71,36 @@ const VibhagList = () => {
 
   const handlePrint = () => {
     const printContent = document.getElementById('report').innerHTML;
-    const newWindow = window.open('', '', 'width=1500,height=600');
+    const currentDate = new Date().toLocaleString(); // Get current date and time
+    const newWindow = window.open('', '', 'width=800,height=600');
     newWindow.document.write(`
         <html>
             <head>
-                <title>Print Report</title>
+                <title>Report</title>
                 <style>
-                    body { font-family: Arial, sans-serif; }
+                    body { 
+                        font-family: Arial, sans-serif; 
+                        margin: 0; 
+                        padding: 20px; 
+                        border: 2px solid #000; /* Border around the entire page */
+                        box-sizing: border-box; /* Include padding in the width and height */
+                    }
+                    h1 { font-size: 24px; text-align: center; }
+                    .date-time { text-align: center; margin-bottom: 20px; }
                     table { width: 100%; border-collapse: collapse; }
                     th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
                     th { background-color: #f2f2f2; }
                 </style>
             </head>
             <body onload="window.print(); window.close();">
+                <h1>Anand Agricultural University</h1>
+                <div class="date-time">Date and Time: ${currentDate}</div>
                 ${printContent}
             </body>
         </html>
     `);
     newWindow.document.close();
-  };
+};
 
   return (
     <>

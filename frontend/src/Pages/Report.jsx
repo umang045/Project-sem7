@@ -21,13 +21,13 @@ const columns1 = [
     { id: "ix", text: "ક્રમ" },
     { id: "idxx", text: "નંબર" },
     { id: "name", text: "નામ" },
-    { id: "area", text: "v" },
+    { id: "area", text: "એરિયા" },
     { id: "cost", text: "રકમ" },
 
 ];
 
 const Report = () => {
-    const { data1 } = useVibhag();
+    // const { data1 } = useVibhag();
     const { Vrgidata, AllDt } = useVargikrn()
     console.log(AllDt , Vrgidata);
     const dispatch = useDispatch()
@@ -39,27 +39,30 @@ const Report = () => {
     const handlePrint = () => {
         const printContent = document.getElementById('report').innerHTML;
         const currentDate = new Date().toLocaleString(); // Get current date and time
-        const newWindow = window.open('', '', 'width=800,height=600');
+        const newWindow = window.open('', '', 'width=600,height=600');
         newWindow.document.write(`
             <html>
                 <head>
-                    <title></title>
+                    <title>Report</title>
                     <style>
-                        body { font-family: Arial, sans-serif; }
+                        body { 
+                            font-family: Arial, sans-serif; 
+                            margin: 0; 
+                            padding: 20px; 
+                            border: 2px solid #000; /* Border around the entire page */
+                            box-sizing: border-box; /* Include padding in the width and height */
+                        }
                         h1 { font-size: 24px; text-align: center; }
-                        .report-border { border: 2px solid #000; padding: 20px; border-radius: 8px; }
+                        .date-time { text-align: center; margin-bottom: 20px; }
                         table { width: 100%; border-collapse: collapse; }
                         th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
                         th { background-color: #f2f2f2; }
-                        .date-time { text-align: center; margin-bottom: 20px; }
                     </style>
                 </head>
                 <body onload="window.print(); window.close();">
-                    <h1>Anand Agricultural University</h1> <!-- Change this to your desired title -->
+                    <h1>Anand Agricultural University</h1>
                     <div class="date-time">Date and Time: ${currentDate}</div>
-                    <div class="report-border">
-                        ${printContent}
-                    </div>
+                    ${printContent}
                 </body>
             </html>
         `);
