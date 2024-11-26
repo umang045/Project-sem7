@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ResponsiveTable } from "responsive-table-react";
 import { useVibhag } from "../Hooks/useVibahg";
 
@@ -6,6 +6,10 @@ const columns = [
   {
     id: "index",
     text: "ક્રમ",
+  },
+  {
+    id: "kacheriname",
+    text: "kacheriname",
   },
   {
     id: "name",
@@ -67,11 +71,19 @@ const columns = [
 
 const VibhagList = () => {
   const { data1 } = useVibhag();
-  // console.log(data1);
+  console.log(data1);
+  
+  const [printContent, setPrintContent] = useState("");
+  const [currentDate, setCurrentDate] = useState("");
+
+  useEffect(() => {
+    const date = new Date().toLocaleString();
+    setCurrentDate(date);
+  }, []);
 
   const handlePrint = () => {
-    const printContent = document.getElementById('report').innerHTML;
-    const currentDate = new Date().toLocaleString(); // Get current date and time
+    const reportContainer = document.getElementById('report');
+    setPrintContent(reportContainer.innerHTML);
     const newWindow = window.open('', '', 'width=800,height=600');
     newWindow.document.write(`
         <html>
@@ -100,7 +112,7 @@ const VibhagList = () => {
         </html>
     `);
     newWindow.document.close();
-};
+  };
 
   return (
     <>

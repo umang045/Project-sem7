@@ -23,7 +23,7 @@ const Login = () => {
 
     useEffect(() => {
         if (isLoaded && isSignedIn) {
-            navigate('/kacheri');
+            navigate('/kacheri', { replace: true });
         }
     }, [isLoaded, isSignedIn, navigate]);
 
@@ -39,7 +39,7 @@ const Login = () => {
             </SignedIn>
         </>
     );
-}
+};
 
 export const UserButton = ClerkUserButton;
 export default Login;
